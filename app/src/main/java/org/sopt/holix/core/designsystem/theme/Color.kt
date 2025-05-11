@@ -1,4 +1,4 @@
-package org.sopt.holix.ui.theme
+package org.sopt.holix.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 
