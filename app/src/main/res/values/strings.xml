@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Holix</string>
+    <string name="profile">프로필</string>
+    <string name="empty_string">데이터가 없습니다.</string>
+    <string name="loading_string">로딩 중...</string>
+</resources>
