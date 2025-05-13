@@ -62,7 +62,7 @@ fun DummyItem(
 @Preview
 @Composable
 private fun DummyItemPreview() {
-    HolixTheme {
+   HolixAndroidTheme {
         DummyItem(
             id = 1,
             firstName = "Yein",

@@ -132,7 +132,7 @@ fun DummyScreen(
 @Preview
 @Composable
 private fun DummyScreenPreview() {
-    HolixTheme {
+    HolixAndroidTheme {
         DummyScreen(
             paddingValues = PaddingValues(),
             navigateUp = {},
