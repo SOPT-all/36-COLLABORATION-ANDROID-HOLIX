@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
 
 @Composable
@@ -56,7 +57,7 @@ private fun MainScreenContent(
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
-    HolixTheme {
+    HolixAndroidTheme {
         MainScreen(
             navigator = rememberMainNavigator()
         )

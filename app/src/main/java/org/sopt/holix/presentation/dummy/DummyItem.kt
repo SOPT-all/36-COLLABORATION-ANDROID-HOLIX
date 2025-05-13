@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import org.sopt.holix.R
+import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.core.util.noRippleClickable
 
@@ -62,7 +63,7 @@ fun DummyItem(
 @Preview
 @Composable
 private fun DummyItemPreview() {
-    HolixTheme {
+   HolixAndroidTheme {
         DummyItem(
             id = 1,
             firstName = "Yein",
