@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import kotlinx.collections.immutable.PersistentList
 import org.sopt.holix.R
+import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.noRippleClickable
@@ -109,7 +110,8 @@ fun DummyScreen(
                             .noRippleClickable { navigateUp() },
                         textAlign = TextAlign.Center,
                         text = state.message,
-                        fontSize = 30.sp
+                        style = HolixTheme.typography.body1Sb15,
+                        color = HolixTheme.colors.alertRed
                     )
                 }
             }
