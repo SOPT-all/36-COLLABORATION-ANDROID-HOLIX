@@ -3,9 +3,9 @@ package org.sopt.holix.presentation.chatting.components.detail
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
@@ -41,6 +41,7 @@ fun ChattingTextField(
     Row (
         modifier = modifier
             .fillMaxWidth()
+            .navigationBarsPadding()
             .background(HolixTheme.colors.white),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
