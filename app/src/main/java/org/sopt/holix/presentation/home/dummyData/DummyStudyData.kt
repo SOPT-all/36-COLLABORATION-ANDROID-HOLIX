@@ -6,7 +6,7 @@ import org.sopt.holix.presentation.home.model.TagUiModel
 val dummyStudyList1 = listOf(
     StudyUiModel(
         studyId = 1,
-        studyTitle = "위클리 UX / UI 분석 챌린지",
+        studyTitle = "🐯위클리 UX / UI 분석 챌린지 🐯",
         studyLeader = "레오",
         price = "매월 14,900원",
         imageUrl = "",
