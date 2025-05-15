@@ -77,4 +77,7 @@ dependencies {
     implementation(libs.coil.compose)
 
     implementation(libs.timber)
+
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+
 }
