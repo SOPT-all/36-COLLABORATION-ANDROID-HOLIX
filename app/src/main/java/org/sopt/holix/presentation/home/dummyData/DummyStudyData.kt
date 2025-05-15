@@ -1,4 +1,4 @@
-package org.sopt.holix.presentation.home.dummy
+package org.sopt.holix.presentation.home.dummyData
 
 import org.sopt.holix.presentation.home.model.StudyUiModel
 import org.sopt.holix.presentation.home.model.TagUiModel
