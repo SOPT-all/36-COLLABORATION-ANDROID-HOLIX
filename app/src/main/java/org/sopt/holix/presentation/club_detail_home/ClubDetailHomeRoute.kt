@@ -132,205 +132,213 @@ fun ClubDetailHomeScreen(
                     .fillMaxSize()
                     .padding(paddingValues)
             ) {
+                // Parent Column: fills max size
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
                         .systemBarsPadding()
                 ) {
-                    // Banner Image with Top Bar Overlay
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(240.dp)
+                    // Cal1: Wrap content height
+                    Column(
+                        modifier = Modifier.wrapContentHeight()
                     ) {
-                        Image(
-                            painter = painterResource(id = R.drawable.img_club_main_and),
-                            contentDescription = "클럽 배너",
-                            contentScale = ContentScale.Crop,
-                            modifier = Modifier.fillMaxSize()
-                        )
+                        // Banner Image with Top Bar Overlay
                         Box(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .height(80.dp)
-                                .background(
-                                    brush = androidx.compose.ui.graphics.Brush.verticalGradient(
-                                        colors = listOf(
-                                            Color.Black.copy(alpha = 0.6f),
-                                            Color.Transparent
-                                        )
-                                    )
-                                )
-                                .padding(
-                                    top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 4.dp,
-                                    start = 16.dp,
-                                    end = 16.dp
-                                )
+                                .height(240.dp)
                         ) {
-                            Row(
-                                modifier = Modifier.fillMaxWidth(),
-                                horizontalArrangement = Arrangement.SpaceBetween
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_arrow_left_white),
-                                    contentDescription = "뒤로가기",
-                                    tint = Color.White,
-                                    modifier = Modifier.noRippleClickable { navigateUp() }
-                                )
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_search_white),
-                                    contentDescription = "검색",
-                                    tint = Color.White,
-                                    modifier = Modifier.noRippleClickable { /* TODO */ }
-                                )
-                            }
-                        }
-                    }
-
-                    Box(
-                        modifier = Modifier
-                            .wrapContentHeight()
-                            .background(
-                                color = HolixTheme.colors.white,
-                                shape = RoundedCornerShape(topStart = 13.dp, topEnd = 13.dp)
+                            Image(
+                                painter = painterResource(id = R.drawable.img_club_main_and),
+                                contentDescription = "클럽 배너",
+                                contentScale = ContentScale.Crop,
+                                modifier = Modifier.fillMaxSize()
                             )
-                    ) {
-                        Column {
-                            Text(
-                                text = "💰 디자이너로서 성공하고 싶은 사람들이 모인 방",
-                                style = HolixTheme.typography.title1B17,
-                                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
-                            )
-                            Row(
-                                modifier = Modifier
-                                    .padding(horizontal = 16.dp),
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_chatting_menu_4),
-                                    contentDescription = "멤버",
-                                    tint = HolixTheme.colors.gray04
-                                )
-                                Spacer(modifier = Modifier.width(4.dp))
-                                Text(
-                                    text = "멤버 130/500",
-                                    style = HolixTheme.typography.body6M13,
-                                    color = HolixTheme.colors.gray05
-                                )
-                            }
-
-                            // Notice
-                            Row(
-                                verticalAlignment = Alignment.CenterVertically,
+                            Box(
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .padding(16.dp)
-                                    .background(HolixTheme.colors.lightBlue, RoundedCornerShape(8.dp))
-                                    .padding(12.dp)
+                                    .height(80.dp)
+                                    .background(
+                                        brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.Black.copy(alpha = 0.6f),
+                                                Color.Transparent
+                                            )
+                                        )
+                                    )
+                                    .padding(
+                                        top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 4.dp,
+                                        start = 16.dp,
+                                        end = 16.dp
+                                    )
                             ) {
                                 Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.weight(1f)
+                                    modifier = Modifier.fillMaxWidth(),
+                                    horizontalArrangement = Arrangement.SpaceBetween
                                 ) {
                                     Icon(
-                                        painter = painterResource(id = R.drawable.ic_speaker),
+                                        painter = painterResource(id = R.drawable.ic_arrow_left_white),
+                                        contentDescription = "뒤로가기",
+                                        tint = Color.White,
+                                        modifier = Modifier.noRippleClickable { navigateUp() }
+                                    )
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_search_white),
+                                        contentDescription = "검색",
+                                        tint = Color.White,
+                                        modifier = Modifier.noRippleClickable { /* TODO */ }
+                                    )
+                                }
+                            }
+                        }
+
+                        Box(
+                            modifier = Modifier
+                                .wrapContentHeight()
+                                .background(
+                                    color = HolixTheme.colors.white,
+                                    shape = RoundedCornerShape(topStart = 13.dp, topEnd = 13.dp)
+                                )
+                        ) {
+                            Column {
+                                Text(
+                                    text = "💰 디자이너로서 성공하고 싶은 사람들이 모인 방",
+                                    style = HolixTheme.typography.title1B17,
+                                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp)
+                                )
+                                Row(
+                                    modifier = Modifier
+                                        .padding(horizontal = 16.dp),
+                                    verticalAlignment = Alignment.CenterVertically
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_chatting_menu_4),
+                                        contentDescription = "멤버",
+                                        tint = HolixTheme.colors.gray04
+                                    )
+                                    Spacer(modifier = Modifier.width(4.dp))
+                                    Text(
+                                        text = "멤버 130/500",
+                                        style = HolixTheme.typography.body6M13,
+                                        color = HolixTheme.colors.gray05
+                                    )
+                                }
+
+                                // 공지
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(16.dp)
+                                        .background(HolixTheme.colors.lightBlue, RoundedCornerShape(8.dp))
+                                        .padding(12.dp)
+                                ) {
+                                    Row(
+                                        verticalAlignment = Alignment.CenterVertically,
+                                        modifier = Modifier.weight(1f)
+                                    ) {
+                                        Icon(
+                                            painter = painterResource(id = R.drawable.ic_speaker),
+                                            contentDescription = "공지",
+                                            tint = Color.Unspecified
+                                        )
+                                        Spacer(modifier = Modifier.width(8.dp))
+                                        Text(
+                                            text = "입장 후 간단하게 자기소개를 포함한 인사를 부탁드려요!",
+                                            style = HolixTheme.typography.label3R11,
+                                            color = HolixTheme.colors.gray07
+                                        )
+                                    }
+                                    Icon(
+                                        painter = painterResource(id = R.drawable.ic_arrow_right_gray),
                                         contentDescription = "공지",
                                         tint = Color.Unspecified
                                     )
-                                    Spacer(modifier = Modifier.width(8.dp))
-                                    Text(
-                                        text = "입장 후 간단하게 자기소개를 포함한 인사를 부탁드려요!",
-                                        style = HolixTheme.typography.label3R11,
-                                        color = HolixTheme.colors.gray07
-                                    )
-                                }
-                                Icon(
-                                    painter = painterResource(id = R.drawable.ic_arrow_right_gray),
-                                    contentDescription = "공지",
-                                    tint = Color.Unspecified
-                                )
-                            }
-
-                            // Menu Buttons
-                            val clubMenuItems = listOf(
-                                ClubMenuItem("모임", R.drawable.ic_club_category_1) { },
-                                ClubMenuItem("멘토링", R.drawable.ic_club_category_2) { },
-                                ClubMenuItem("클래스", R.drawable.ic_club_category_3) { },
-                                ClubMenuItem("퀴즈", R.drawable.ic_club_category_4) { }
-                            )
-
-                            Row(
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 4.dp),
-                                horizontalArrangement = Arrangement.SpaceEvenly,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                clubMenuItems.forEachIndexed { index, item ->
-                                    Column(
-                                        horizontalAlignment = Alignment.CenterHorizontally,
-                                        modifier = Modifier.noRippleClickable { item.onClick() }
-                                    ) {
-                                        Icon(
-                                            painter = painterResource(id = item.iconRes),
-                                            contentDescription = item.label,
-                                            tint = Color.Unspecified
-                                        )
-                                        Text(
-                                            text = item.label,
-                                            style = HolixTheme.typography.label3R11,
-                                            color = HolixTheme.colors.gray06
-                                        )
-                                    }
-                                    if (index != clubMenuItems.lastIndex) {
-                                        Box(
-                                            modifier = Modifier
-                                                .padding(horizontal = 12.dp)
-                                                .fillMaxHeight(),
-                                            contentAlignment = Alignment.Center
-                                        ) {
-                                            Divider(
-                                                color = HolixTheme.colors.gray01,
-                                                modifier = Modifier
-                                                    .width(1.dp)
-                                                    .height(32.dp)
-                                            )
-                                        }
-                                    }
                                 }
                             }
                         }
                     }
-                }
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.BottomCenter)
-                        .padding(bottom = 8.dp)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.speech_bubble_and),
-                        contentDescription = "채팅 안내 문구",
-                        modifier = Modifier
-                            .padding(start = 16.dp)
-                            .align(Alignment.Start)
+                    // Cal2: Fills remaining space
+                    val clubMenuItems = listOf(
+                        ClubMenuItem("모임", R.drawable.ic_club_category_1) { },
+                        ClubMenuItem("멘토링", R.drawable.ic_club_category_2) { },
+                        ClubMenuItem("클래스", R.drawable.ic_club_category_3) { },
+                        ClubMenuItem("퀴즈", R.drawable.ic_club_category_4) { }
                     )
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Box(
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                            .background(color = HolixTheme.colors.mainBlue)
-                            .clickable { navigateNext() }
-                            .padding(vertical = 14.dp)
-                            .padding(horizontal = 16.dp)
-                            .navigationBarsPadding()
+                            .weight(1f)
+                            .fillMaxWidth(),
+                        verticalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Text(
-                            text = "채팅 입장하기",
-                            style = HolixTheme.typography.body1Sb15,
-                            color = HolixTheme.colors.white,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.fillMaxWidth()
-                        )
+                        // 메뉴바
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(start = 16.dp, end = 16.dp, top = 0.dp, bottom = 4.dp),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            clubMenuItems.forEachIndexed { index, item ->
+                                Column(
+                                    horizontalAlignment = Alignment.CenterHorizontally,
+                                    modifier = Modifier.noRippleClickable { item.onClick() }
+                                ) {
+                                    Icon(
+                                        painter = painterResource(id = item.iconRes),
+                                        contentDescription = item.label,
+                                        tint = Color.Unspecified
+                                    )
+                                    Text(
+                                        text = item.label,
+                                        style = HolixTheme.typography.label3R11,
+                                        color = HolixTheme.colors.gray06
+                                    )
+                                }
+                                if (index != clubMenuItems.lastIndex) {
+                                    Box(
+                                        modifier = Modifier
+                                            .padding(horizontal = 12.dp),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Divider(
+                                            color = HolixTheme.colors.gray01,
+                                            modifier = Modifier
+                                                .width(1.dp)
+                                                .height(32.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        // 말풍선 + 채팅 버튼
+                        Column {
+                            Image(
+                                painter = painterResource(id = R.drawable.speech_bubble_and),
+                                contentDescription = "채팅 안내 문구",
+                                modifier = Modifier
+                                    .padding(start = 16.dp)
+                                    .align(Alignment.Start)
+                            )
+                            Spacer(modifier = Modifier.height(8.dp))
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .background(color = HolixTheme.colors.mainBlue)
+                                    .clickable { navigateNext() }
+                                    .padding(vertical = 14.dp)
+                                    .padding(horizontal = 16.dp)
+                                    .navigationBarsPadding()
+                            ) {
+                                Text(
+                                    text = "채팅 입장하기",
+                                    style = HolixTheme.typography.body1Sb15,
+                                    color = HolixTheme.colors.white,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier.fillMaxWidth()
+                                )
+                            }
+                        }
                     }
                 }
             }
