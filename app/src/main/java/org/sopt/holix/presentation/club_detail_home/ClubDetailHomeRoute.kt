@@ -137,40 +137,55 @@ fun ClubDetailHomeScreen(
                         .fillMaxSize()
                         .systemBarsPadding()
                 ) {
-                    // Top Bar
-                    Row(
+                    // Banner Image with Top Bar Overlay
+                    Box(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(
-                                start = 16.dp,
-                                end = 16.dp,
-                                bottom = 12.dp
-                            ),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                            .height(240.dp)
                     ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_arrow_left_white),
-                            contentDescription = "뒤로가기",
-                            tint = Color.Unspecified,
-                            modifier = Modifier.noRippleClickable { navigateUp() }
+                        Image(
+                            painter = painterResource(id = R.drawable.img_club_main_and),
+                            contentDescription = "클럽 배너",
+                            contentScale = ContentScale.Crop,
+                            modifier = Modifier.fillMaxSize()
                         )
-                        Icon(
-                            painter = painterResource(id = R.drawable.ic_search_white),
-                            contentDescription = "검색",
-                            tint = Color.Unspecified,
-                            modifier = Modifier.noRippleClickable { /* TODO */ }
-                        )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(80.dp)
+                                .background(
+                                    brush = androidx.compose.ui.graphics.Brush.verticalGradient(
+                                        colors = listOf(
+                                            Color.Black.copy(alpha = 0.6f),
+                                            Color.Transparent
+                                        )
+                                    )
+                                )
+                                .padding(
+                                    top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 4.dp,
+                                    start = 16.dp,
+                                    end = 16.dp
+                                )
+                        ) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceBetween
+                            ) {
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_arrow_left_white),
+                                    contentDescription = "뒤로가기",
+                                    tint = Color.White,
+                                    modifier = Modifier.noRippleClickable { navigateUp() }
+                                )
+                                Icon(
+                                    painter = painterResource(id = R.drawable.ic_search_white),
+                                    contentDescription = "검색",
+                                    tint = Color.White,
+                                    modifier = Modifier.noRippleClickable { /* TODO */ }
+                                )
+                            }
+                        }
                     }
-
-                    // Banner Image
-                    Image(
-                        painter = painterResource(id = R.drawable.img_home_thumnail_4),
-                        contentDescription = "클럽 배너",
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(200.dp)
-                    )
 
                     Box(
                         modifier = Modifier
