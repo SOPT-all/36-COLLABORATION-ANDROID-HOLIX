@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import kotlinx.collections.immutable.persistentListOf
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.presentation.home.component.BannerCarousel
 import org.sopt.holix.presentation.home.component.CategoryChips
@@ -29,7 +30,7 @@ import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
 fun HomeScreen() {
     val viewModel: HomeViewModel = hiltViewModel()
     val uiState by viewModel.uiState
-    val sections = listOf(
+    val sections = persistentListOf(
          dummyStudyList1,
          dummyStudyList2
     )
