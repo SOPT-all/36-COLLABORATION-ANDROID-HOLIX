@@ -1,14 +1,33 @@
 package org.sopt.holix.presentation.chatting.components.detail.hamburger
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
+import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingType
 import java.time.LocalDateTime
@@ -23,7 +42,32 @@ fun ChattingMemberLazyColumn(
             .height((49 + 53 * memberList.size + 4 * memberList.size).dp)
     ) {
         item {
-            ChattingMemberHeader()
+            Row (
+                modifier = modifier
+                    .padding(horizontal = 16.dp, vertical = 6.dp)
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_plus_large),
+                    contentDescription = stringResource(R.string.chat_add_circle_content_description),
+                    tint = Color.Unspecified,
+                    modifier = Modifier
+                        .background(HolixTheme.colors.gray01, shape = CircleShape)
+                        .clip(CircleShape)
+                        .border(1.dp, HolixTheme.colors.gray02, CircleShape)
+                        .padding(11.dp)
+                )
+
+                Spacer(modifier = modifier.width(14.dp))
+
+                Text(
+                    text = stringResource(R.string.chat_member_header_text),
+                    style = HolixTheme.typography.body1Sb15,
+                    color = HolixTheme.colors.mainBlue,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
 
         items(memberList.size) { memberIndex ->
@@ -96,7 +140,7 @@ fun ChattingMemberLazyColumnPreview() {
     )
     HolixAndroidTheme {
         ChattingMemberLazyColumn(
-            memberList = dummyList
+            dummyList
         )
     }
 }
