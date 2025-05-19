@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,7 +38,7 @@ fun CategoryChips() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 17.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally)
     ) {
         categories.forEach { category ->
@@ -50,25 +51,25 @@ fun CategoryChips() {
 fun CategoryChipItem(category: Category) {
     Column(
         modifier = Modifier
-            .size(width = 78.dp, height = 72.dp)
-            .clip(RoundedCornerShape(12.dp))
+            .size(width = 83.dp, height = 76.dp)
+            .clip(RoundedCornerShape(8.dp))
             .background(Gray01),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Image(
             painter = painterResource(id = category.iconRes),
-            contentDescription = null,
+            contentDescription = category.label,
             modifier = Modifier
                 .padding(top = 11.dp, bottom = 15.dp)
-                .height(18.dp)
-                .width(17.dp)
-
+                .height(19.dp)
+                .width(18.dp)
         )
+
         Text(
             text = category.label,
             style = HolixTheme.typography.body7R13,
             color = Black
         )
-        Spacer(modifier = Modifier.height(10.dp))
+        Spacer(modifier = Modifier.height(11.dp))
     }
 }
