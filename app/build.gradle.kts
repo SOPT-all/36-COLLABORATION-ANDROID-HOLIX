@@ -60,8 +60,6 @@ dependencies {
     androidTestImplementation(libs.bundles.test)
 
     debugImplementation(libs.bundles.debug)
-    implementation("androidx.compose.foundation:foundation:1.5.0")
-
 
     implementation(libs.bundles.androidx)
     implementation(platform(libs.androidx.compose.bom))

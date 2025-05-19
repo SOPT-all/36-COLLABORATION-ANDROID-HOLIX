@@ -17,11 +17,6 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.home.HomeScreen"
-            android:exported="false"
-            android:label="@string/title_activity_home_screen"
-            android:theme="@style/Theme.Holix" />
-        <activity
             android:name=".presentation.main.MainActivity"
             android:exported="true"
             android:label="@string/app_name"

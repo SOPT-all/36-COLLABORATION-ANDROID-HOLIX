@@ -74,7 +74,7 @@ fun HomeScreen() {
 
 @Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
+private fun HomeScreenPreview() {
     HolixAndroidTheme {
         HomeScreen()
     }
