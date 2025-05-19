@@ -95,7 +95,7 @@ fun CourseCardItem(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(7.dp)) {
             study.tags.forEach { tag ->
-                TagChip(tag)
+                TagChip(modifier = Modifier, tag)
             }
         }
         Spacer(modifier = Modifier.height(12.dp))

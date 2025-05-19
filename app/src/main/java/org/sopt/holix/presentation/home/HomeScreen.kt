@@ -38,6 +38,7 @@ fun HomeScreen() {
     LazyColumn{
         item{
             TopBar(
+                modifier = Modifier,
                 search = uiState.search,
                 onSearchChange = { viewModel.onSearchChanged(it) },
                 onMenuClick = {  }

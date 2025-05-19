@@ -67,8 +67,6 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .padding(top = 15.dp, end = 14.dp)
-                .height(27.dp)
-                .width(41.dp)
                 .background(Gray07, RoundedCornerShape(20.dp))
                 .align(Alignment.TopEnd)
         ) {
@@ -78,6 +76,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
                 style = HolixTheme.typography.body7R13,
                 modifier = Modifier
                     .align(Alignment.Center)
+                    .padding(horizontal = 7.dp, vertical = 5.dp)
             )
         }
 
