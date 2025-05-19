@@ -17,10 +17,11 @@ import org.sopt.holix.core.designsystem.theme.HolixTheme
 
 @Composable
 fun ChattingSystemMessage(
-    message : String
+    message : String,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .wrapContentWidth()
             .clip(RoundedCornerShape(20.dp))
             .background(HolixTheme.colors.gray03),
@@ -38,7 +39,7 @@ fun ChattingSystemMessage(
 
 @Preview(showBackground = true)
 @Composable
-fun ChattingSystemMessagePreview() {
+private fun ChattingSystemMessagePreview() {
     HolixAndroidTheme {
         ChattingSystemMessage(message = "누구님이 입장했습니다")
     }

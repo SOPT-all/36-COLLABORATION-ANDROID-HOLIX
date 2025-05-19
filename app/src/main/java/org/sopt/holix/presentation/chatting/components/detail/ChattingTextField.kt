@@ -95,14 +95,18 @@ fun ChattingTextField(
             contentDescription = stringResource(R.string.chat_send_content_description),
             modifier = modifier
                 .padding(start = 13.dp, end = 16.dp),
-            tint = Color.Unspecified
+            tint = if (chat.isEmpty()) {
+                Color.Unspecified
+            } else {
+                HolixTheme.colors.mainBlue
+            }
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ChattingTextFieldPreview() {
+private fun ChattingTextFieldPreview() {
     HolixAndroidTheme {
         ChattingTextField(
             chat = "",

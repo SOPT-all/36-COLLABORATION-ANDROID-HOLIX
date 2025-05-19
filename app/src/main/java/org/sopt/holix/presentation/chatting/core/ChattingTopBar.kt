@@ -45,7 +45,9 @@ fun ChattingTopBar(
                 .padding(vertical = 7.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Box(
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_left_black),
+                contentDescription = stringResource(R.string.back_content_description),
                 modifier = modifier
                     .then(
                         if (screenType == ChattingScreenType.Hamburger) {
@@ -53,18 +55,11 @@ fun ChattingTopBar(
                         } else {
                             modifier.padding(start = 10.dp, end = 9.dp)
                         }
-                    ),
-                contentAlignment = Alignment.CenterStart
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_arrow_left_black),
-                    contentDescription = stringResource(R.string.back_content_description),
-                    modifier = modifier
-                        .clickable {
-                            //navigateUp()
-                        }
-                )
-            }
+                    )
+                    .clickable {
+                        //navigateUp()
+                    }
+            )
 
             if (screenType == ChattingScreenType.Detail) {
                 //Todo : 나중에 뷰 합칠 때 받아오기
@@ -76,6 +71,7 @@ fun ChattingTopBar(
                     style = HolixTheme.typography.body3R15,
                     color = HolixTheme.colors.black,
                     modifier = modifier
+                        .align(Alignment.CenterVertically)
                         .padding(end = 2.dp)
                 )
 
@@ -85,27 +81,21 @@ fun ChattingTopBar(
                     modifier = modifier
                         .fillMaxWidth()
                 ){
-                    Box {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_search_black),
-                            contentDescription = stringResource(R.string.chat_search_content_description),
-                            modifier = modifier
-                                .padding(5.dp)
-                        )
-                    }
-
-                    Box(
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_search_black),
+                        contentDescription = stringResource(R.string.chat_search_content_description),
                         modifier = modifier
+                            .padding(5.dp)
+                    )
+
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_hambeger),
+                        contentDescription = stringResource(R.string.chat_hamburger_content_description),
+                        tint = HolixTheme.colors.black,
+                        modifier = modifier
+                            .padding(5.dp)
                             .padding(end = 16.dp)
-                    ) {
-                        Icon(
-                            imageVector = ImageVector.vectorResource(R.drawable.ic_hambeger),
-                            contentDescription = stringResource(R.string.chat_hamburger_content_description),
-                            tint = HolixTheme.colors.black,
-                            modifier = modifier
-                                .padding(5.dp)
-                        )
-                    }
+                    )
                 }
             }
         }
@@ -114,10 +104,10 @@ fun ChattingTopBar(
 
 @Preview(showBackground = true)
 @Composable
-fun ChattingTopBarPreview() {
+private fun ChattingTopBarPreview() {
     HolixAndroidTheme {
         ChattingTopBar(
-            screenType = ChattingScreenType.Hamburger,
+            screenType = ChattingScreenType.Detail,
             navigateUp = {}
         )
     }

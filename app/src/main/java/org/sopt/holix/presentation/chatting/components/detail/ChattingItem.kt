@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -36,8 +35,8 @@ fun ChattingItem(
     likes : Int,
     date : String,
     isMine : Boolean,
+    onEmojiClick : () -> Unit,
     modifier: Modifier = Modifier,
-    onEmojiClick : () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -49,6 +48,7 @@ fun ChattingItem(
             },
         verticalAlignment = Alignment.CenterVertically
     ) {
+        //Todo : UI 테스트 표현 용 나중에 데이터에 따라 변경예정
         if (!isMine) {
             Box {
                 Icon(
@@ -83,7 +83,6 @@ fun ChattingItem(
         Row {
             Column (
                 modifier = modifier
-                    .wrapContentHeight()
             ) {
                 if (!isMine) {
                     //닉네임 + 한마디
@@ -111,16 +110,12 @@ fun ChattingItem(
                 }
             }
         }
-
-        if (isMine) {
-            Spacer(modifier = modifier.width(6.dp))
-        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun ChattingItemPreview() {
+private fun ChattingItemPreview() {
     HolixAndroidTheme {
         ChattingItem(
             nickname = "김솝트",
@@ -129,7 +124,7 @@ fun ChattingItemPreview() {
             likes = 3,
             introduction = "배워서 어쩌구 저쩌구구구구구",
             date = "2025-03-05T21:30:00",
-            isMine = false,
+            isMine = true,
             onEmojiClick = {}
         )
     }

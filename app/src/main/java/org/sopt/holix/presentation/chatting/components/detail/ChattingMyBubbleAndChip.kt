@@ -24,8 +24,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import org.sopt.holix.presentation.chatting.utils.DateUtils.toFormattedTimeString
 
 @Composable
 fun ChattingMyBubbleAndChip(
@@ -34,11 +33,6 @@ fun ChattingMyBubbleAndChip(
     date: String,
     modifier: Modifier = Modifier
 ) {
-    val dateTimeParse = LocalDateTime.parse(date)
-
-    val timeFormatter = DateTimeFormatter.ofPattern("a h시 m분", java.util.Locale.KOREAN)
-    val timeText = dateTimeParse.format(timeFormatter)
-
     Box(
         modifier = modifier
             .padding(5.dp)
@@ -62,7 +56,7 @@ fun ChattingMyBubbleAndChip(
 
             Text(
                 modifier = modifier.align(Alignment.Bottom),
-                text = timeText,
+                text = date.toFormattedTimeString(),
                 style = HolixTheme.typography.label4M9,
                 color = HolixTheme.colors.gray05
             )
@@ -103,7 +97,7 @@ fun ChattingMyBubbleAndChip(
 
 @Preview(showBackground = true)
 @Composable
-fun ChattingMyBubblePreview() {
+private fun ChattingMyBubblePreview() {
     HolixAndroidTheme {
         ChattingMyBubbleAndChip(
             chat = "ㅎㅇㅎㅇㅎㅇㅎ",

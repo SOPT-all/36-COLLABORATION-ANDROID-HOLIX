@@ -48,7 +48,7 @@ fun ChattingItemTop(
 
 @Preview(showBackground = true)
 @Composable
-fun ChattingItemTopPreview() {
+private fun ChattingItemTopPreview() {
     HolixAndroidTheme {
         ChattingItemTop(
             nickname = "김솝트",
