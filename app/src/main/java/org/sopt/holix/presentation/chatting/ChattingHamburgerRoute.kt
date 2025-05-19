@@ -33,8 +33,8 @@ import org.sopt.holix.core.util.noRippleClickable
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingScreenType
 import org.sopt.holix.domain.model.chatting.ChattingType
-import org.sopt.holix.presentation.chatting.components.hamburger.ChattingClubExit
-import org.sopt.holix.presentation.chatting.components.hamburger.ChattingHamburgerMenu
+import org.sopt.holix.presentation.chatting.components.detail.hamburger.ChattingClubExit
+import org.sopt.holix.presentation.chatting.components.detail.hamburger.ChattingHamburgerMenu
 import org.sopt.holix.presentation.chatting.core.ChattingTopBar
 import java.time.LocalDateTime
 

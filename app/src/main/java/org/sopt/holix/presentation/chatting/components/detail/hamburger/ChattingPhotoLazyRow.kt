@@ -1,4 +1,4 @@
-package org.sopt.holix.presentation.chatting.components.hamburger
+package org.sopt.holix.presentation.chatting.components.detail.hamburger
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
