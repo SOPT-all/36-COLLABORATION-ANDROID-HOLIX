@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.persistentListOf
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.Gray05
 import org.sopt.holix.core.designsystem.theme.Gray07
@@ -32,7 +33,7 @@ import org.sopt.holix.core.designsystem.theme.White
 
 @Composable
 fun BannerCarousel() {
-    val thumbnails = listOf(
+    val thumbnails = persistentListOf(
         R.drawable.img_home_thumnail_1,
         R.drawable.img_home_thumnail_2,
         R.drawable.img_home_thumnail_3,
@@ -83,7 +84,7 @@ fun BannerCarousel() {
         Row(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .padding(bottom = 19.dp ),
+                .padding(bottom = 19.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
