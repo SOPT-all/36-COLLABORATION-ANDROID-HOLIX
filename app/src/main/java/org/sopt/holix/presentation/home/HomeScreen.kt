@@ -13,6 +13,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.presentation.home.component.BannerCarousel
 import org.sopt.holix.presentation.home.component.CategoryChips
@@ -23,12 +24,11 @@ import org.sopt.holix.presentation.home.dummyData.dummyStudyList1
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
 
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun HomeScreen() {
-    var selectedTab by remember { mutableStateOf(0) }
-    var search by remember { mutableStateOf("") }
+    val viewModel: HomeViewModel = hiltViewModel()
+    val uiState by viewModel.uiState
     val sections = listOf(
          dummyStudyList1,
          dummyStudyList2
@@ -37,8 +37,8 @@ fun HomeScreen() {
     LazyColumn{
         item{
             TopBar(
-                search = search,
-                onSearchChange = { search = it },
+                search = uiState.search,
+                onSearchChange = { viewModel.onSearchChanged(it) },
                 onMenuClick = {  }
             )
             Spacer(modifier = Modifier.height(3.dp))
@@ -46,8 +46,8 @@ fun HomeScreen() {
 
         stickyHeader{
             TabRowSection(
-                selectedTab = selectedTab,
-                onTabSelected = { selectedTab = it }
+                selectedTab = uiState.selectedTab,
+                onTabSelected = { viewModel.onTabSelected(it) }
             )
         }
 

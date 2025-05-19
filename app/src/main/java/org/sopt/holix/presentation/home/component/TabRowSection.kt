@@ -37,7 +37,6 @@ fun TabRowSection(
         },
         modifier = Modifier
             .height(46.dp)
-
     ) {
         categories.forEachIndexed { index, category ->
             Tab(
