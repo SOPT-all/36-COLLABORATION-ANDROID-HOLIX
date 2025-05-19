@@ -23,7 +23,7 @@ data class ChattingResponseDto(
     @SerialName("likes")
     val likes : Int,
     @SerialName("chattingType")
-    val chattingType : ChattingType,
+    val chattingType : String,
     @SerialName("isMine")
     val isMine : Boolean,
     @SerialName("createdAt")
@@ -37,7 +37,11 @@ data class ChattingResponseDto(
         imageUrl = imageUrl,
         contents = contents,
         likes = likes,
-        chattingType = chattingType,
+        chattingType = if (chattingType == "USER") {
+            ChattingType.USER
+        } else {
+            ChattingType.SYSTEM
+        },
         isMine = isMine,
         createdAt = LocalDateTime.parse(createdAt)
     )
