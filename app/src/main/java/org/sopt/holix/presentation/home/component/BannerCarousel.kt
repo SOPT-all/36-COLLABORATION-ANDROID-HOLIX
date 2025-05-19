@@ -32,7 +32,7 @@ import org.sopt.holix.core.designsystem.theme.White
 
 
 @Composable
-fun BannerCarousel() {
+fun BannerCarousel(modifier: Modifier = Modifier) {
     val thumbnails = persistentListOf(
         R.drawable.img_home_thumnail_1,
         R.drawable.img_home_thumnail_2,

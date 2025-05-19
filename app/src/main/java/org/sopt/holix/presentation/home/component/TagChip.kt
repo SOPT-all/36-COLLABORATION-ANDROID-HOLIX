@@ -15,7 +15,9 @@ import org.sopt.holix.presentation.home.model.TagUiModel
 
 
 @Composable
-fun TagChip(tag: TagUiModel) {
+fun TagChip(
+    modifier: Modifier = Modifier,
+    tag: TagUiModel) {
     Box(
         modifier = Modifier
             .border(

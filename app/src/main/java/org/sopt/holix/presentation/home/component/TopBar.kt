@@ -26,6 +26,7 @@ import org.sopt.holix.core.designsystem.theme.White
 
 @Composable
 fun TopBar(
+    modifier: Modifier = Modifier,
     search: String,
     onSearchChange: (String) -> Unit,
     onMenuClick: () -> Unit) {

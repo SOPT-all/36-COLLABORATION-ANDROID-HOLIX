@@ -30,6 +30,7 @@ import org.sopt.holix.presentation.home.model.StudyUiModel
 
 @Composable
 fun CourseSection(
+    modifier: Modifier = Modifier,
     title: String,
     studies: List<StudyUiModel>
 ) {

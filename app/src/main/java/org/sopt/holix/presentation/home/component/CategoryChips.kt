@@ -28,7 +28,7 @@ import org.sopt.holix.presentation.home.model.Category
 
 
 @Composable
-fun CategoryChips() {
+fun CategoryChips(modifier: Modifier = Modifier) {
     val categories = listOf(
         Category(R.drawable.ic_career, "커리어"),
         Category(R.drawable.ic_tech, "재테크"),

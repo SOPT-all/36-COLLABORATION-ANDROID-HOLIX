@@ -18,6 +18,7 @@ import org.sopt.holix.core.designsystem.theme.HolixTheme
 
 @Composable
 fun TabRowSection(
+    modifier: Modifier = Modifier,
     selectedTab: Int,
     onTabSelected: (Int) -> Unit
 ) {
