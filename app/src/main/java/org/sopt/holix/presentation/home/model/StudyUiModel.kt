@@ -1,7 +1,5 @@
 package org.sopt.holix.presentation.home.model
 
-import org.sopt.holix.domain.model.Study
-import org.sopt.holix.domain.model.StudyData
 import org.sopt.holix.domain.model.Tag
 
 data class StudyUiModel(

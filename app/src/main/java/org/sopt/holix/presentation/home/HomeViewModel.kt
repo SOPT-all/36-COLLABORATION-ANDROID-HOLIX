@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList1
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
-import org.sopt.holix.presentation.home.model.StudyDataUiModel
 import javax.inject.Inject
 
 @HiltViewModel

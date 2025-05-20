@@ -70,21 +70,20 @@ fun CourseSection(
     }
 }
 
-
 @Composable
 fun CourseCardItem(
     study: StudyUiModel,
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .width(256.dp)
             .height(228.dp)
     ) {
         AsyncImage(
             model = study.imageUrl,
             modifier = Modifier
-                .aspectRatio(150f / 228f)
+                .aspectRatio(228f / 150f)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(10.dp)),
             contentDescription = study.studyTitle,

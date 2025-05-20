@@ -15,7 +15,6 @@ import androidx.compose.ui.unit.dp
 import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Blue
 import org.sopt.holix.core.designsystem.theme.HolixTheme
-import org.sopt.holix.core.designsystem.theme.White
 import org.sopt.holix.presentation.home.model.TabList
 
 
