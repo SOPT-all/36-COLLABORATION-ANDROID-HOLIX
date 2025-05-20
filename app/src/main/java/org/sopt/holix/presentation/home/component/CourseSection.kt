@@ -40,7 +40,7 @@ fun CourseSection(
             .padding(start = 16.dp)
     ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 14.dp, end = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -52,7 +52,7 @@ fun CourseSection(
                 color = Black
             )
             Text(
-                modifier = modifier
+                modifier = Modifier
                     .padding(end = 6.dp),
                 text = "더보기",
                 style = HolixTheme.typography.body2M15,
@@ -77,7 +77,7 @@ fun CourseCardItem(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier
+        modifier = Modifier
             .width(256.dp)
             .height(228.dp)
     ) {
@@ -99,7 +99,7 @@ fun CourseCardItem(
                 TagChip(modifier = Modifier, tag)
             }
         }
-        Spacer(modifier = modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Text(
             text = study.studyTitle,
@@ -107,7 +107,7 @@ fun CourseCardItem(
             color = Black,
             maxLines = 1
         )
-        Spacer(modifier = modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         Text(
             text = study.studyLeader,
@@ -115,7 +115,7 @@ fun CourseCardItem(
             color = Gray03,
             maxLines = 1
         )
-        Spacer(modifier = modifier.height(2.dp))
+        Spacer(modifier = Modifier.height(2.dp))
 
         Text(
             text = study.price,

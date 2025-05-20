@@ -49,7 +49,7 @@ fun TopBar(
                 tint = Color.Unspecified
             )
         }
-        Spacer(modifier = modifier.width(16.dp))
+        Spacer(modifier = Modifier.width(16.dp))
         OutlinedTextField(
             value = search,
             onValueChange = onSearchChange,
@@ -67,7 +67,7 @@ fun TopBar(
                     tint = Gray03
                 )
             },
-            modifier = modifier
+            modifier = Modifier
                 .weight(1f)
                 .padding(vertical = 1.dp)
                 .height(50.dp)

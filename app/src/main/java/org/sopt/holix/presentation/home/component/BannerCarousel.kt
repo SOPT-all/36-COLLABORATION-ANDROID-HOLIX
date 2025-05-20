@@ -44,13 +44,13 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
     ) {
         HorizontalPager(
             state = pagerState,
-            modifier = modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             pageSpacing = 0.dp,
             pageSize = PageSize.Fill
         ) { page ->
             Image(
                 painter = painterResource(id = thumbnails[page]),
-                contentDescription = null,
+                contentDescription = "Thumbnail image ${page + 1}",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
@@ -58,7 +58,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         }
 
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .padding(top = 15.dp, end = 14.dp)
                 .background(Gray07, RoundedCornerShape(20.dp))
                 .align(Alignment.TopEnd)
@@ -74,7 +74,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         }
 
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 19.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -82,7 +82,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         ) {
             for (i in thumbnails.indices) {
                 Box(
-                    modifier = modifier
+                    modifier = Modifier
                         .height(8.dp)
                         .width(8.dp)
                         .clip(CircleShape)
