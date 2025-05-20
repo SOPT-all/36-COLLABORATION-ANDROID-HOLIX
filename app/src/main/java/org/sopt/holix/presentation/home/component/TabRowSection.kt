@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Blue
 import org.sopt.holix.core.designsystem.theme.HolixTheme
+import org.sopt.holix.presentation.home.model.TabList
 
 
 @Composable
@@ -22,7 +23,7 @@ fun TabRowSection(
     selectedTab: Int,
     onTabSelected: (Int) -> Unit
 ) {
-    val categories = listOf("추천", "강의", "스터디", "북클럽", "멘토링", "커뮤니티")
+    val tabItems = TabList.values()
 
     ScrollableTabRow(
         selectedTabIndex = selectedTab,
@@ -39,7 +40,7 @@ fun TabRowSection(
         modifier = modifier
             .height(46.dp)
     ) {
-        categories.forEachIndexed { index, category ->
+        tabItems.forEachIndexed { index, tab ->
             Tab(
                 modifier = Modifier
                     .width(40.dp),
@@ -47,7 +48,7 @@ fun TabRowSection(
                 onClick = { onTabSelected(index) },
                 text = {
                     Text(
-                        text = category,
+                        text = tab.tabName,
                         style = if (selectedTab == index) HolixTheme.typography.body1Sb15 else HolixTheme.typography.body3R15,
                         textAlign = TextAlign.Center,
                         maxLines = 1
