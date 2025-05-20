@@ -27,11 +27,12 @@ import org.sopt.holix.core.designsystem.theme.White
 
 
 @Composable
-fun TopBar(
+fun SearchTopBar(
     modifier: Modifier = Modifier,
     search: String,
     onSearchChange: (String) -> Unit,
-    onMenuClick: () -> Unit) {
+    onMenuClick: () -> Unit
+) {
 
     val hamburgerIcon = ImageVector.vectorResource(id = R.drawable.ic_hambeger)
     val searchIcon = ImageVector.vectorResource(id = R.drawable.ic_search_black)

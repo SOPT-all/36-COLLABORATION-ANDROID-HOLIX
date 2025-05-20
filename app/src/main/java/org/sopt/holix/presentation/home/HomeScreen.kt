@@ -17,7 +17,7 @@ import org.sopt.holix.presentation.home.component.BannerCarousel
 import org.sopt.holix.presentation.home.component.CategoryChips
 import org.sopt.holix.presentation.home.component.CourseSection
 import org.sopt.holix.presentation.home.component.TabRowSection
-import org.sopt.holix.presentation.home.component.TopBar
+import org.sopt.holix.presentation.home.component.SearchTopBar
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList1
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
 
@@ -34,7 +34,7 @@ fun HomeScreen() {
 
     LazyColumn{
         item{
-            TopBar(
+            SearchTopBar(
                 modifier = Modifier,
                 search = uiState.search,
                 onSearchChange = { viewModel.onSearchChanged(it) },
