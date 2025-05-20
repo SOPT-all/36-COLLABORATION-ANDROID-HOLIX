@@ -1,5 +1,6 @@
 package org.sopt.holix.presentation.home.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.ScrollableTabRow
@@ -9,11 +10,13 @@ import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Blue
 import org.sopt.holix.core.designsystem.theme.HolixTheme
+import org.sopt.holix.core.designsystem.theme.White
 import org.sopt.holix.presentation.home.model.TabList
 
 
@@ -29,6 +32,7 @@ fun TabRowSection(
         selectedTabIndex = selectedTab,
         edgePadding = 0.dp,
         contentColor = Black,
+        containerColor = Color.White,
         indicator = { tabPositions ->
             TabRowDefaults.Indicator(
                 modifier = Modifier

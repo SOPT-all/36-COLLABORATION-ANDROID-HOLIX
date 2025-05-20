@@ -1,6 +1,7 @@
 package org.sopt.holix.presentation.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
@@ -12,7 +13,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import kotlinx.collections.immutable.persistentListOf
+import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
+import org.sopt.holix.core.designsystem.theme.White
 import org.sopt.holix.presentation.home.component.BannerCarousel
 import org.sopt.holix.presentation.home.component.CategoryChips
 import org.sopt.holix.presentation.home.component.CourseSection
@@ -32,7 +35,9 @@ fun HomeScreen() {
          dummyStudyList2
     )
 
-    LazyColumn{
+    LazyColumn(
+        modifier = Modifier.background(color = White)
+    ){
         item{
             SearchTopBar(
                 modifier = Modifier,
@@ -45,6 +50,7 @@ fun HomeScreen() {
 
         stickyHeader{
             TabRowSection(
+                modifier = Modifier,
                 selectedTab = uiState.selectedTab,
                 onTabSelected = { viewModel.onTabSelected(it) }
             )
