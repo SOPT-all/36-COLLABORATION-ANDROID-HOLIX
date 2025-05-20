@@ -1,5 +1,6 @@
 package org.sopt.holix.presentation.myclub
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -97,7 +98,8 @@ fun MyClubScreen(
         state = scrollState,
         modifier = modifier
             .fillMaxSize()
-            .padding(paddingValues),
+            .padding(paddingValues)
+            .background(color = HolixTheme.colors.white),
     ) {
         when (state) {
             is UiState.Loading -> {
