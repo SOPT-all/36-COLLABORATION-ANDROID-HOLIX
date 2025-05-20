@@ -2,6 +2,9 @@ package org.sopt.holix.data.dto.response
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import org.sopt.holix.domain.model.Study
+import org.sopt.holix.domain.model.StudyData
+import org.sopt.holix.domain.model.Tag
 
 @Serializable
 data class StudyResponseDto(
@@ -11,7 +14,9 @@ data class StudyResponseDto(
     val message: String,
     @SerialName("data")
     val data: StudyDataDto
-)
+) {
+    fun toDomainModel(): StudyData = data.toDomainModel()
+}
 
 @Serializable
 data class StudyDataDto(
@@ -25,7 +30,15 @@ data class StudyDataDto(
     val recommendStudies: List<StudyDto>,
     @SerialName("freeStudies")
     val freeStudies: List<StudyDto>
-)
+) {
+    fun toDomainModel(): StudyData = StudyData(
+        passionateStudies = passionateStudies.map { it.toDomainModel() },
+        insightStudies = insightStudies.map { it.toDomainModel() },
+        newStudies = newStudies.map { it.toDomainModel() },
+        recommendStudies = recommendStudies.map { it.toDomainModel() },
+        freeStudies = freeStudies.map { it.toDomainModel() }
+    )
+}
 
 @Serializable
 data class StudyDto(
@@ -43,7 +56,17 @@ data class StudyDto(
     val tags: List<TagDto>,
     @SerialName("category")
     val category: String
-)
+) {
+    fun toDomainModel(): Study = Study(
+        id = studyId,
+        title = studyTitle,
+        leader = studyLeader,
+        price = price,
+        imageUrl = url,
+        tags = tags.map { it.toDomainModel() },
+        category = category
+    )
+}
 
 @Serializable
 data class TagDto(
@@ -53,4 +76,9 @@ data class TagDto(
     val tagName: String,
     @SerialName("tagColor")
     val tagColor: String
-)
+) {
+    fun toDomainModel(): Tag = Tag(
+        name = tagName,
+        color = tagColor
+    )
+}

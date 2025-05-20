@@ -11,8 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor() : ViewModel() {
-    private val _uiState = mutableStateOf(HomeUiState())
-    val uiState: State<HomeUiState> = _uiState
+    private val _uiState = mutableStateOf(HomeState())
+    val uiState: State<HomeState> = _uiState
 
     init {
         loadDummyData()

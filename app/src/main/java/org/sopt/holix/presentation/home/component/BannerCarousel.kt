@@ -23,9 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
-import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.Gray05
 import org.sopt.holix.core.designsystem.theme.Gray07
 import org.sopt.holix.core.designsystem.theme.HolixTheme

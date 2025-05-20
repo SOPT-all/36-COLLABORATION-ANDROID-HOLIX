@@ -1,6 +1,5 @@
 package org.sopt.holix.presentation.home.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
@@ -18,13 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import coil.compose.rememberAsyncImagePainter
+import coil.compose.AsyncImage
 import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Gray03
 import org.sopt.holix.core.designsystem.theme.Gray04
 import org.sopt.holix.core.designsystem.theme.HolixTheme
-
 import org.sopt.holix.presentation.home.model.StudyUiModel
 
 
@@ -81,19 +80,19 @@ fun CourseCardItem(
             .width(256.dp)
             .height(228.dp)
     ) {
-        Image(
-            painter = rememberAsyncImagePainter(model = study.imageUrl),
+        AsyncImage(
+            model = study.imageUrl,
             contentDescription = study.studyTitle,
-            modifier = modifier
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(150.dp)
                 .clip(RoundedCornerShape(10.dp))
-
         )
-        Spacer(modifier = modifier.height(12.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         Row(
-            modifier = modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(7.dp)) {
             study.tags.forEach { tag ->
                 TagChip(modifier = Modifier, tag)
