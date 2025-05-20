@@ -39,7 +39,7 @@ import org.sopt.holix.domain.model.chatting.ChattingType
 import org.sopt.holix.presentation.chatting.components.detail.ChattingItem
 import org.sopt.holix.presentation.chatting.components.detail.ChattingSystemMessage
 import org.sopt.holix.presentation.chatting.components.detail.ChattingTextField
-import org.sopt.holix.presentation.chatting.core.ChattingTopBar
+import org.sopt.holix.presentation.chatting.components.detail.ChattingTopBar
 import org.sopt.holix.presentation.chatting.utils.DateUtils.toFormattedTodayString
 import java.time.LocalDateTime
 
@@ -52,7 +52,6 @@ fun ChattingRoute(
     viewModel: ChattingViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val currentText by viewModel.chattingText.collectAsStateWithLifecycle(initialValue = "")
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
@@ -74,7 +73,7 @@ fun ChattingRoute(
     //Todo : 나중에 이동 추가
     ChattingScreen(
         paddingValues = paddingValues,
-        currentText = currentText,
+        currentText = state.chattingText,
         navigateUp = navigateUp,
         state = state.uiState,
         onTextChanged = {

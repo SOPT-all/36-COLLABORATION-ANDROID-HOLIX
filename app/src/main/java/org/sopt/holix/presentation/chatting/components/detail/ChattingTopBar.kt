@@ -1,4 +1,4 @@
-package org.sopt.holix.presentation.chatting.core
+package org.sopt.holix.presentation.chatting.components.detail
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -61,42 +61,40 @@ fun ChattingTopBar(
                     }
             )
 
-            if (screenType == ChattingScreenType.Detail) {
-                //Todo : 나중에 뷰 합칠 때 받아오기
-                Text(
-                    text = stringResource(R.string.chatting_club_name),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    textAlign = TextAlign.Center,
-                    style = HolixTheme.typography.body3R15,
-                    color = HolixTheme.colors.black,
+            //Todo : 나중에 뷰 합칠 때 받아오기
+            Text(
+                text = stringResource(R.string.chatting_club_name),
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                textAlign = TextAlign.Center,
+                style = HolixTheme.typography.body3R15,
+                color = HolixTheme.colors.black,
+                modifier = modifier
+                    .align(Alignment.CenterVertically)
+                    .padding(end = 2.dp)
+            )
+
+            Row (
+                horizontalArrangement = Arrangement.End,
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = modifier
+                    .fillMaxWidth()
+            ){
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_search_black),
+                    contentDescription = stringResource(R.string.chat_search_content_description),
                     modifier = modifier
-                        .align(Alignment.CenterVertically)
-                        .padding(end = 2.dp)
+                        .padding(5.dp)
                 )
 
-                Row (
-                    horizontalArrangement = Arrangement.End,
-                    verticalAlignment = Alignment.CenterVertically,
+                Icon(
+                    imageVector = ImageVector.vectorResource(R.drawable.ic_hambeger),
+                    contentDescription = stringResource(R.string.chat_hamburger_content_description),
+                    tint = HolixTheme.colors.black,
                     modifier = modifier
-                        .fillMaxWidth()
-                ){
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_search_black),
-                        contentDescription = stringResource(R.string.chat_search_content_description),
-                        modifier = modifier
-                            .padding(5.dp)
-                    )
-
-                    Icon(
-                        imageVector = ImageVector.vectorResource(R.drawable.ic_hambeger),
-                        contentDescription = stringResource(R.string.chat_hamburger_content_description),
-                        tint = HolixTheme.colors.black,
-                        modifier = modifier
-                            .padding(5.dp)
-                            .padding(end = 16.dp)
-                    )
-                }
+                        .padding(5.dp)
+                        .padding(end = 16.dp)
+                )
             }
         }
     }
