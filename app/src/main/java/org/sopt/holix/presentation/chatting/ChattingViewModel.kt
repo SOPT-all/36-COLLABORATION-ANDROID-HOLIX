@@ -26,9 +26,6 @@ class ChattingViewModel @Inject constructor(
     val sideEffect: MutableSharedFlow<ChattingSideEffect>
         get() = _sideEffect
 
-    private val _chattingText = MutableStateFlow<String>("")
-    val chattingText = _chattingText.asStateFlow()
-
 
     fun getChattingList(clubId: Long) = viewModelScope.launch {
         chattingRepository.getChattingList(clubId = clubId)
@@ -46,8 +43,10 @@ class ChattingViewModel @Inject constructor(
     }
 
 
-    fun fetchText(chat : String) = viewModelScope.launch {
-        _chattingText.emit(chat)
+    fun fetchText(chat: String) = viewModelScope.launch {
+        _state.value = _state.value.copy(
+            chattingText = chat
+        )
     }
 
     fun showSnackBar(message: String) = viewModelScope.launch {
