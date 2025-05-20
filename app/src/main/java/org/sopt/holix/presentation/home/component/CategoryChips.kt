@@ -29,19 +29,13 @@ import org.sopt.holix.presentation.home.model.Category
 
 @Composable
 fun CategoryChips(modifier: Modifier = Modifier) {
-    val categories = listOf(
-        Category(R.drawable.ic_career, "커리어"),
-        Category(R.drawable.ic_tech, "재테크"),
-        Category(R.drawable.ic_heart, "자기계발"),
-        Category(R.drawable.ic_studying, "학업")
-    )
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 17.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally)
     ) {
-        categories.forEach { category ->
+        Category.values().forEach { category ->
             CategoryChipItem(category)
         }
     }

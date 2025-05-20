@@ -1,6 +1,6 @@
 package org.sopt.holix.presentation.home.model
 
-import androidx.activity.compose.R
+import org.sopt.holix.R
 
 enum class Category(val iconRes: Int, val label: String) {
     CAREER(R.drawable.ic_career, "커리어"),

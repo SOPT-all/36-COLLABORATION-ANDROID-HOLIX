@@ -44,6 +44,7 @@ data class StudyDto(
     @SerialName("category")
     val category: String
 )
+
 @Serializable
 data class TagDto(
     @SerialName("tagId")

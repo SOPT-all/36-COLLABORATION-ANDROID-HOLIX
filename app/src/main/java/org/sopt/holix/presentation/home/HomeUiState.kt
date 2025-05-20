@@ -4,7 +4,6 @@ import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import org.sopt.holix.presentation.home.model.StudyUiModel
 
-
 data class HomeUiState(
     val selectedTab: Int = 0,
     val search: String = "",
