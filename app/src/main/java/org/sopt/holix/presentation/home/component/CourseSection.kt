@@ -35,12 +35,12 @@ fun CourseSection(
     studies: List<StudyUiModel>
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(start = 16.dp)
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(bottom = 14.dp, end = 10.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -52,7 +52,7 @@ fun CourseSection(
                 color = Black
             )
             Text(
-                modifier = Modifier
+                modifier = modifier
                     .padding(end = 6.dp),
                 text = "더보기",
                 style = HolixTheme.typography.body2M15,
@@ -73,32 +73,33 @@ fun CourseSection(
 
 @Composable
 fun CourseCardItem(
-    study: StudyUiModel
+    study: StudyUiModel,
+    modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .width(256.dp)
             .height(228.dp)
     ) {
         Image(
             painter = rememberAsyncImagePainter(model = study.imageUrl),
             contentDescription = study.studyTitle,
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .height(150.dp)
                 .clip(RoundedCornerShape(10.dp))
 
         )
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = modifier.height(12.dp))
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(7.dp)) {
             study.tags.forEach { tag ->
                 TagChip(modifier = Modifier, tag)
             }
         }
-        Spacer(modifier = Modifier.height(12.dp))
+        Spacer(modifier = modifier.height(12.dp))
 
         Text(
             text = study.studyTitle,
@@ -106,7 +107,7 @@ fun CourseCardItem(
             color = Black,
             maxLines = 1
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = modifier.height(2.dp))
 
         Text(
             text = study.studyLeader,
@@ -114,7 +115,7 @@ fun CourseCardItem(
             color = Gray03,
             maxLines = 1
         )
-        Spacer(modifier = Modifier.height(2.dp))
+        Spacer(modifier = modifier.height(2.dp))
 
         Text(
             text = study.price,

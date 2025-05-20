@@ -16,7 +16,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.Gray03
@@ -31,18 +33,22 @@ fun TopBar(
     onSearchChange: (String) -> Unit,
     onMenuClick: () -> Unit) {
 
+    val hamburgerIcon = ImageVector.vectorResource(id = R.drawable.ic_hambeger)
+    val searchIcon = ImageVector.vectorResource(id = R.drawable.ic_search_black)
+
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
         IconButton(onClick = onMenuClick) {
-            Icon(painter = painterResource(id = R.drawable.ic_hambeger),
+            Icon(
+                imageVector = hamburgerIcon,
                 contentDescription = "Menu",
                 tint = Color.Unspecified
             )
         }
-        Spacer(modifier = Modifier.width(16.dp))
+        Spacer(modifier = modifier.width(16.dp))
         OutlinedTextField(
             value = search,
             onValueChange = onSearchChange,
@@ -55,12 +61,12 @@ fun TopBar(
             },
             trailingIcon = {
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_search_black),
+                   imageVector = searchIcon,
                     contentDescription = "Search",
                     tint = Gray03
                 )
             },
-            modifier = Modifier
+            modifier = modifier
                 .weight(1f)
                 .padding(vertical = 1.dp)
                 .height(50.dp)

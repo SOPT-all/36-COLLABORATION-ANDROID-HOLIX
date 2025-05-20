@@ -24,34 +24,29 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.Gray05
 import org.sopt.holix.core.designsystem.theme.Gray07
 import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.core.designsystem.theme.White
+import org.sopt.holix.presentation.home.model.Thumbnail
 
 
 @Composable
 fun BannerCarousel(modifier: Modifier = Modifier) {
-    val thumbnails = persistentListOf(
-        R.drawable.img_home_thumnail_1,
-        R.drawable.img_home_thumnail_2,
-        R.drawable.img_home_thumnail_3,
-        R.drawable.img_home_thumnail_4,
-        R.drawable.img_home_thumnail_5,
-        R.drawable.img_home_thumnail__and6,
-    )
+    val thumbnails = Thumbnail.entries.map { it.resId }.toPersistentList()
     val pagerState = rememberPagerState(
         pageCount = {thumbnails.size})
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
 
     ) {
         HorizontalPager(
             state = pagerState,
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             pageSpacing = 0.dp,
             pageSize = PageSize.Fill
         ) { page ->
@@ -65,7 +60,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         }
 
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .padding(top = 15.dp, end = 14.dp)
                 .background(Gray07, RoundedCornerShape(20.dp))
                 .align(Alignment.TopEnd)
@@ -81,7 +76,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         }
 
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .align(Alignment.BottomCenter)
                 .padding(bottom = 19.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -89,7 +84,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
         ) {
             for (i in thumbnails.indices) {
                 Box(
-                    modifier = Modifier
+                    modifier = modifier
                         .height(8.dp)
                         .width(8.dp)
                         .clip(CircleShape)
@@ -97,7 +92,7 @@ fun BannerCarousel(modifier: Modifier = Modifier) {
                             if (i == pagerState.currentPage) Gray05 else White
                         )
                 )
-                Spacer(modifier = Modifier.width(9.dp))
+                Spacer(modifier = modifier.width(9.dp))
             }
         }
     }

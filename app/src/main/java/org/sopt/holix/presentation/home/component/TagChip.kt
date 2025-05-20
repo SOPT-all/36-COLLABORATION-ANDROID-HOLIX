@@ -19,7 +19,7 @@ fun TagChip(
     modifier: Modifier = Modifier,
     tag: TagUiModel) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .border(
                 width = 1.dp,
                 color = when (tag.color) {

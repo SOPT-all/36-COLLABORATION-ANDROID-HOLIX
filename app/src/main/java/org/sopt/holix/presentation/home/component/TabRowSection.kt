@@ -36,12 +36,12 @@ fun TabRowSection(
                 color = Blue
             )
         },
-        modifier = Modifier
+        modifier = modifier
             .height(46.dp)
     ) {
         categories.forEachIndexed { index, category ->
             Tab(
-                modifier = Modifier
+                modifier = modifier
                     .width(40.dp),
                 selected = selectedTab == index,
                 onClick = { onTabSelected(index) },

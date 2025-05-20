@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.toPersistentList
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Gray01
@@ -29,22 +30,24 @@ import org.sopt.holix.presentation.home.model.Category
 
 @Composable
 fun CategoryChips(modifier: Modifier = Modifier) {
+    val categories = Category.entries.toPersistentList()
+
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 17.dp),
         horizontalArrangement = Arrangement.spacedBy(5.dp, Alignment.CenterHorizontally)
     ) {
-        Category.values().forEach { category ->
+        categories.forEach { category ->
             CategoryChipItem(category)
         }
     }
 }
 
 @Composable
-fun CategoryChipItem(category: Category) {
+fun CategoryChipItem(category: Category, modifier: Modifier = Modifier) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .size(width = 83.dp, height = 76.dp)
             .clip(RoundedCornerShape(8.dp))
             .background(Gray01),
