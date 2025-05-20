@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement.Absolute.spacedBy
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -82,12 +83,12 @@ fun CourseCardItem(
     ) {
         AsyncImage(
             model = study.imageUrl,
+            modifier = Modifier
+                .aspectRatio(150f / 228f)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp)),
             contentDescription = study.studyTitle,
             contentScale = ContentScale.Crop,
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .clip(RoundedCornerShape(10.dp))
         )
         Spacer(modifier = Modifier.height(12.dp))
 
