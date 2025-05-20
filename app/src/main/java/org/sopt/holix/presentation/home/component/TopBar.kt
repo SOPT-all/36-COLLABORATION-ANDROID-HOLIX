@@ -18,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import org.sopt.holix.R
@@ -35,6 +36,7 @@ fun TopBar(
 
     val hamburgerIcon = ImageVector.vectorResource(id = R.drawable.ic_hambeger)
     val searchIcon = ImageVector.vectorResource(id = R.drawable.ic_search_black)
+    val placeholderText = stringResource(id = R.string.search_placeholder)
 
     Row(
         modifier = modifier
@@ -54,7 +56,7 @@ fun TopBar(
             onValueChange = onSearchChange,
             placeholder = {
                 Text(
-                    text = "무엇을 배우고 싶으신가요?",
+                    text = placeholderText,
                     color = Gray03,
                     style = HolixTheme.typography.body3R15
                 )
