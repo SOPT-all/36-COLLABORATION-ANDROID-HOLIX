@@ -47,9 +47,16 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.input.pointer.motionEventSpy
 
-data class ClubMenuItem(
-    val label: String, @DrawableRes val iconRes: Int, val onClick: () -> Unit
-)
+enum class ClubMenuItem(val label: String, @DrawableRes val iconRes: Int) {
+    MEETING("모임", R.drawable.ic_club_category_1),
+    MENTORING("멘토링", R.drawable.ic_club_category_2),
+    CLASS("클래스", R.drawable.ic_club_category_3),
+    QUIZ("퀴즈", R.drawable.ic_club_category_4);
+
+    companion object {
+        val items get() = entries
+    }
+}
 
 @Composable
 fun ClubDetailHomeRoute(
@@ -138,7 +145,7 @@ fun ClubDetailHomeScreen(
         }
 
         is UiState.Success -> {
-            Box(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(color = HolixTheme.colors.white)
@@ -176,16 +183,11 @@ fun ClubDetailHomeScreen(
                                 .height(80.dp)
                                 .align(Alignment.TopStart),
                             navigateUp = navigateUp,
-                            onSearchClick = { /* TODO */ }
+                            onSearchClick = {}
                         )
                     }
 
-                    val clubMenuItems = listOf(
-                        ClubMenuItem("모임", R.drawable.ic_club_category_1) { },
-                        ClubMenuItem("멘토링", R.drawable.ic_club_category_2) { },
-                        ClubMenuItem("클래스", R.drawable.ic_club_category_3) { },
-                        ClubMenuItem("퀴즈", R.drawable.ic_club_category_4) { }
-                    )
+                    val clubMenuItems = ClubMenuItem.items
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -207,7 +209,7 @@ fun ClubDetailHomeScreen(
                             )
                             // Member info
                             Row(
-                                modifier = Modifier.padding(bottom = 12.dp),
+                                modifier = Modifier.padding(top = 12.dp, bottom = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
                                 Icon(
@@ -226,6 +228,7 @@ fun ClubDetailHomeScreen(
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
+                                    .height(46.dp)
                                     .background(
                                         HolixTheme.colors.lightBlue,
                                         RoundedCornerShape(7.dp)
@@ -239,7 +242,7 @@ fun ClubDetailHomeScreen(
                                 ) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_speaker),
-                                        contentDescription = "",
+                                        contentDescription = "확성기 아이콘",
                                         tint = Color.Unspecified
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
@@ -251,8 +254,9 @@ fun ClubDetailHomeScreen(
                                 }
                                 Icon(
                                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_right_gray),
-                                    contentDescription = "",
-                                    tint = Color.Unspecified
+                                    contentDescription = "오른쪽 화살표",
+                                    tint = Color.Unspecified,
+                                    modifier = Modifier.padding(end = 11.dp)
                                 )
                             }
                             Spacer(
@@ -261,10 +265,10 @@ fun ClubDetailHomeScreen(
                                     .fillMaxWidth()
                             )
                             Divider(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth(),
                                 color = HolixTheme.colors.gray01,
                                 thickness = 5.dp
-
                             )
                             // 메뉴바
                             Row(
@@ -274,22 +278,29 @@ fun ClubDetailHomeScreen(
                                 horizontalArrangement = Arrangement.SpaceEvenly,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                clubMenuItems.forEachIndexed { index, item ->
+                                ClubMenuItem.items.forEachIndexed { index, item ->
                                     Column(
+                                        modifier = Modifier
+                                            .width(74.dp)
+                                            .height(71.dp)
+                                            .clickable { println("Clicked on ${item.label}") },
                                         horizontalAlignment = Alignment.CenterHorizontally,
-                                        modifier = Modifier.noRippleClickable { item.onClick() }) {
+                                        verticalArrangement = Arrangement.Top
+                                    ) {
+                                        Spacer(modifier = Modifier.height(13.dp))
                                         Icon(
                                             painter = painterResource(id = item.iconRes),
                                             contentDescription = item.label,
-                                            tint = Color.Unspecified
+                                            tint = HolixTheme.colors.gray06
                                         )
+                                        Spacer(modifier = Modifier.height(9.dp))
                                         Text(
                                             text = item.label,
                                             style = HolixTheme.typography.label3R11,
-                                            color = HolixTheme.colors.gray06
+                                            color = HolixTheme.colors.gray07
                                         )
                                     }
-                                    if (index != clubMenuItems.lastIndex) {
+                                    if (index != ClubMenuItem.items.lastIndex) {
                                         Box(
                                             modifier = Modifier.padding(horizontal = 12.dp),
                                             contentAlignment = Alignment.Center
@@ -298,7 +309,7 @@ fun ClubDetailHomeScreen(
                                                 color = HolixTheme.colors.gray01,
                                                 modifier = Modifier
                                                     .width(1.dp)
-                                                    .height(32.dp)
+                                                    .height(24.dp)
                                             )
                                         }
                                     }
@@ -312,7 +323,6 @@ fun ClubDetailHomeScreen(
                             .fillMaxSize()
                             .background(color = HolixTheme.colors.white)
                             .padding(paddingValues)
-
                     ) {
                         Column(
                             modifier = Modifier
@@ -321,29 +331,27 @@ fun ClubDetailHomeScreen(
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.speech_bubble_and),
-                                contentDescription = "",
+                                contentDescription = "채팅 안내 말풍선",
                                 modifier = Modifier
                                     .padding(start = 16.dp)
                                     .align(Alignment.Start)
                             )
                             Spacer(modifier = Modifier
-                                .height(8.dp)
+                                .height(9.dp)
                             )
-                            Box(
+                            Text(
+                                text = "채팅 입장하기",
                                 modifier = Modifier
                                     .fillMaxWidth()
-                                    .aspectRatio(360f / 52f)
+                                    .height(52.dp)
                                     .background(color = HolixTheme.colors.mainBlue)
-                                    .clickable { navigateNext() },
-                                contentAlignment = Alignment.Center
-                            ) {
-                                Text(
-                                    text = "채팅 입장하기",
-                                    style = HolixTheme.typography.body1Sb15,
-                                    color = HolixTheme.colors.white,
-                                    textAlign = TextAlign.Center
-                                )
-                            }
+                                    .clickable { navigateNext() }
+                                    .padding(vertical = 13.dp)
+                                    .defaultMinSize(minHeight = 52.dp),
+                                style = HolixTheme.typography.title2Sb15,
+                                color = HolixTheme.colors.white,
+                                textAlign = TextAlign.Center
+                            )
                         }
                     }
                 }
