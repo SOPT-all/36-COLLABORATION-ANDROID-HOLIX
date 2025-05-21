@@ -48,10 +48,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.input.pointer.motionEventSpy
 
 enum class ClubMenuItem(val label: String, @DrawableRes val iconRes: Int) {
-    MEETING("모임", R.drawable.ic_club_category_1),
-    MENTORING("멘토링", R.drawable.ic_club_category_2),
-    CLASS("클래스", R.drawable.ic_club_category_3),
-    QUIZ("퀴즈", R.drawable.ic_club_category_4);
+    MEETING("모임", R.drawable.ic_club_category_4),
+    MENTORING("멘토링", R.drawable.ic_club_category_1),
+    CLASS("클래스", R.drawable.ic_club_category_2),
+    QUIZ("퀴즈", R.drawable.ic_club_category_3);
 
     companion object {
         val items get() = entries
@@ -206,6 +206,7 @@ fun ClubDetailHomeScreen(
                                 text = "💰 디자이너로서 성공하고 싶은 사람들이 모인 방",
                                 style = HolixTheme.typography.title1B17,
                                 modifier = Modifier
+                                    .fillMaxWidth()
                             )
                             // Member info
                             Row(
@@ -248,7 +249,7 @@ fun ClubDetailHomeScreen(
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
                                         text = "입장 후 간단하게 자기소개를 포함한 인사를 부탁드려요!",
-                                        style = HolixTheme.typography.label3R11,
+                                        style = HolixTheme.typography.body6M13,
                                         color = HolixTheme.colors.gray07
                                     )
                                 }
@@ -296,7 +297,7 @@ fun ClubDetailHomeScreen(
                                         Spacer(modifier = Modifier.height(9.dp))
                                         Text(
                                             text = item.label,
-                                            style = HolixTheme.typography.label3R11,
+                                            style = HolixTheme.typography.label2M11,
                                             color = HolixTheme.colors.gray07
                                         )
                                     }
