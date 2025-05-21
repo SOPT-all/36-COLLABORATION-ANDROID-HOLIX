@@ -14,4 +14,13 @@
     <string name="description_mentoring">멘토링 아이콘</string>
     <string name="description_class">클래스 아이콘</string>
     <string name="description_quiz">퀴즈 아이콘</string>
+    <string name="my_club">내 클럽</string>
+    <string name="my_club_class">클래스</string>
+    <string name="my_club_mentoring">멘토링</string>
+    <string name="my_club_status_recruiting">모집중</string>
+    <string name="my_club_status_closed">마감</string>
+    <string name="my_club_recommend_image">나의 클럽 추천 이미지</string>
+    <string name="my_club_pin_button">핀 버튼</string>
+    <string name="my_club_image">나의 클럽 이미지</string>
+    <string name="my_club_recommend">추천</string>
 </resources>
