@@ -7,9 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Icon
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
@@ -43,20 +40,7 @@ import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.noRippleClickable
 import org.sopt.holix.domain.model.DummyUser
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.ui.input.pointer.motionEventSpy
 
-enum class ClubMenuItem(val label: String, @DrawableRes val iconRes: Int) {
-    MEETING("모임", R.drawable.ic_club_category_4),
-    MENTORING("멘토링", R.drawable.ic_club_category_1),
-    CLASS("클래스", R.drawable.ic_club_category_2),
-    QUIZ("퀴즈", R.drawable.ic_club_category_3);
-
-    companion object {
-        val items get() = entries
-    }
-}
 
 @Composable
 fun ClubDetailHomeRoute(
@@ -165,7 +149,7 @@ fun ClubDetailHomeScreen(
                     ) {
                         AsyncImage(
                             model = R.drawable.img_club_main_and,
-                            contentDescription = "배너 이미지",
+                            contentDescription = stringResource(R.string.description_banner),
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
@@ -215,7 +199,7 @@ fun ClubDetailHomeScreen(
                             ) {
                                 Icon(
                                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_chatting_menu_4),
-                                    contentDescription = "",
+                                    contentDescription = stringResource(R.string.description_member),
                                     tint = HolixTheme.colors.gray04
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
@@ -243,7 +227,7 @@ fun ClubDetailHomeScreen(
                                 ) {
                                     Icon(
                                         imageVector = ImageVector.vectorResource(id = R.drawable.ic_speaker),
-                                        contentDescription = "확성기 아이콘",
+                                        contentDescription = stringResource(R.string.description_speaker),
                                         tint = Color.Unspecified
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
@@ -255,7 +239,7 @@ fun ClubDetailHomeScreen(
                                 }
                                 Icon(
                                     imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_right_gray),
-                                    contentDescription = "오른쪽 화살표",
+                                    contentDescription = stringResource(R.string.description_arrow_right),
                                     tint = Color.Unspecified,
                                     modifier = Modifier.padding(end = 11.dp)
                                 )
@@ -291,7 +275,7 @@ fun ClubDetailHomeScreen(
                                         Spacer(modifier = Modifier.height(13.dp))
                                         Icon(
                                             painter = painterResource(id = item.iconRes),
-                                            contentDescription = item.label,
+                                            contentDescription = stringResource(id = item.labelRes),
                                             tint = HolixTheme.colors.gray06
                                         )
                                         Spacer(modifier = Modifier.height(9.dp))
@@ -332,7 +316,7 @@ fun ClubDetailHomeScreen(
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.speech_bubble_and),
-                                contentDescription = "채팅 안내 말풍선",
+                                contentDescription = stringResource(R.string.description_chat_bubble),
                                 modifier = Modifier
                                     .padding(start = 16.dp)
                                     .align(Alignment.Start)
@@ -410,12 +394,12 @@ fun ClubDetailTopAppBar(
         ) {
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_arrow_left_white),
-                contentDescription = "뒤로가기",
+                contentDescription = stringResource(R.string.description_back),
                 tint = Color.White,
                 modifier = Modifier.noRippleClickable { navigateUp() })
             Icon(
                 imageVector = ImageVector.vectorResource(id = R.drawable.ic_search_white),
-                contentDescription = "검색",
+                contentDescription = stringResource(R.string.description_search),
                 tint = Color.White,
                 modifier = Modifier.noRippleClickable { onSearchClick() })
         }
