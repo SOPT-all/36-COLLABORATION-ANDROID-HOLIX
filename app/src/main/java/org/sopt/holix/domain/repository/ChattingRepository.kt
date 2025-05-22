@@ -1,7 +1,11 @@
 package org.sopt.holix.domain.repository
 
-import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
+import org.sopt.holix.data.dto.request.ChattingRequestDto
+import org.sopt.holix.data.dto.response.chatting.ChattingListWrapperDto
+import org.sopt.holix.data.dto.response.chatting.ChattingPostResponseDto
 
 interface ChattingRepository {
-    suspend fun getChattingList(clubId : Long): Result<List<ChattingListDataEntity>>
+    suspend fun getChattingList(clubId : Long): Result<ChattingListWrapperDto>
+
+    suspend fun postChatting(clubId: Long, chattingRequestDto: ChattingRequestDto): Result<ChattingPostResponseDto>
 }
