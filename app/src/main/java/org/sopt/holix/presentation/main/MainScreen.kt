@@ -1,14 +1,12 @@
 package org.sopt.holix.presentation.main
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
@@ -35,12 +33,12 @@ private fun MainScreenContent(
 ) {
     Scaffold(
         modifier = modifier
-            .background(color = Color.White),
+            .background(color = HolixTheme.colors.white),
         content = { padding ->
             HolixNavHost(
                 navigator = navigator,
                 paddingValues = padding,
-                snackBarHostState = snackBarHostState
+                snackBarHostState = snackBarHostState,
             )
         },
         bottomBar = {
