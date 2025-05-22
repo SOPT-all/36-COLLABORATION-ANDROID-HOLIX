@@ -3,7 +3,49 @@
     <string name="profile">프로필</string>
     <string name="empty_string">데이터가 없습니다.</string>
     <string name="loading_string">로딩 중...</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="search_placeholder">무엇을 배우고 싶으신가요?</string>
+    <string name="back_content_description">뒤로 가기</string>
 
+    <!--chatting screen-->
+    <string name="chat_profile_image_content_description">프로필 이미지</string>
+    <string name="chat_profile_online_content_description">온라인 상태</string>
+    <string name="chat_profile_owner_content_description">방장</string>
+
+    <string name="chat_emoji_icon_content_description">반응 아이콘</string>
+    <string name="chat_add_circle_content_description">채팅 더보기</string>
+    <string name="chat_send_content_description">채팅 전송</string>
+
+    <string name="chat_search_content_description">검색 메뉴</string>
+    <string name="chat_hamburger_content_description">채팅 햄버거 메뉴</string>
+    <string name="chat_hamburger_menu_next_content_description">채팅 햄버거에서 다른 메뉴로 이동</string>
+    <string name="chat_hamburger_menu_vote">투표</string>
+    <string name="chat_member_header_text">초대하기</string>
+    <string name="chat_hamburger_menu_tag">태그</string>
+    <string name="chat_hamburger_menu_link">링크</string>
+    <string name="chat_hamburger_menu_image">사진</string>
+    <string name="chat_hamburger_menu_image_content_description">채팅 사진</string>
+    <string name="chat_hamburger_menu_member">멤버</string>
+    <string name="chat_club_exit">클럽 나가기</string>
+
+
+    <string name="chatting_club_name">💰디자이너로서 성공하고 싶은 사람들… </string>
+
+    <string name="chat_text_field_placeholder">메시지를 입력해주세요.</string>
+
+    <string name="introduction_divider"> · </string>
+
+    <string name="description_banner">배너 이미지</string>
+    <string name="description_speaker">공지 아이콘</string>
+    <string name="description_arrow_right">오른쪽 화살표</string>
+    <string name="description_back">뒤로가기</string>
+    <string name="description_search">검색</string>
+    <string name="description_chat_bubble">채팅 안내 말풍선</string>
+    <string name="description_member">멤버 아이콘</string>
+    <string name="description_meeting">모임 아이콘</string>
+    <string name="description_mentoring">멘토링 아이콘</string>
+    <string name="description_class">클래스 아이콘</string>
+    <string name="description_quiz">퀴즈 아이콘</string>
     <string name="my_club">내 클럽</string>
     <string name="my_club_class">클래스</string>
     <string name="my_club_mentoring">멘토링</string>
@@ -12,6 +54,5 @@
     <string name="my_club_recommend_image">나의 클럽 추천 이미지</string>
     <string name="my_club_pin_button">핀 버튼</string>
     <string name="my_club_image">나의 클럽 이미지</string>
-    <string name="my_club_recommend">추천</string>"
-
+    <string name="my_club_recommend">추천</string>
 </resources>
