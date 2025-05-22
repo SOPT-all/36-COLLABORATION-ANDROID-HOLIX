@@ -1,5 +1,6 @@
 package org.sopt.holix.presentation.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -42,7 +43,6 @@ class HomeViewModel @Inject constructor(
                         )
                     )
                 )
-                _sideEffect.emit(HomeSideEffect.ShowSnackBar("성공..."))
             }.onFailure { throwable ->
                 val errorMessage = handleError(throwable)
                 _state.value = _state.value.copy(
@@ -59,6 +59,4 @@ class HomeViewModel @Inject constructor(
     fun onSearchChanged(newValue: String) {
         _state.value = _state.value.copy(search = newValue)
     }
-
-
 }

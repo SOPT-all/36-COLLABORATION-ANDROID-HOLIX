@@ -55,11 +55,4 @@ object NetworkModule {
         .addConverterFactory(converterFactory)
         .client(client)
         .build()
-
-//    @Provides
-//    @Singleton
-//    fun provideHomeService(
-//        retrofit: Retrofit
-//    ): HomeService = retrofit.create(HomeService::class.java)
-
 }
