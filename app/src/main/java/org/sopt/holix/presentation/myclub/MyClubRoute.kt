@@ -54,7 +54,7 @@ fun MyClubRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.getDummyMyClubList()
+        viewModel.getMyClubList()
         viewModel.getRecommendClubList()
     }
 
