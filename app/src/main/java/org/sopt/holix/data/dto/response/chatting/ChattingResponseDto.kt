@@ -28,7 +28,7 @@ data class ChattingResponseDto(
     @SerialName("createdAt")
     val createdAt : String,
 ) {
-    fun toDomainModel() = ChattingListDataEntity(
+    fun toEntity() = ChattingListDataEntity(
         chattingId = chattingId,
         clubId = clubId,
         userName = userName,
