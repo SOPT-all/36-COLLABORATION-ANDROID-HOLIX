@@ -1,6 +1,5 @@
 package org.sopt.holix.presentation.chatting
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -13,12 +12,12 @@ import kotlinx.coroutines.launch
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.handleError
 import org.sopt.holix.data.dto.request.ChattingRequestDto
-import org.sopt.holix.domain.repository.ChattingRepository
+import org.sopt.holix.domain.repository.ClubRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class ChattingViewModel @Inject constructor(
-    private val chattingRepository: ChattingRepository
+    private val clubRepository: ClubRepository
 ): ViewModel() {
     private val _state = MutableStateFlow(ChattingState())
     val state: StateFlow<ChattingState>
@@ -29,12 +28,11 @@ class ChattingViewModel @Inject constructor(
         get() = _sideEffect
 
     fun getChattingList(clubId: Long) = viewModelScope.launch {
-        chattingRepository.getChattingList(clubId = clubId)
+        clubRepository.getChattingList(clubId = clubId)
             .onSuccess {
                 val chattingList = it.chattingList.map { chatting ->
-                    chatting.toDomainModel()
+                    chatting.toEntity()
                 }
-                Log.d("chattingList", chattingList.toString())
                 _state.value = _state.value.copy(
                     uiState = UiState.Success(chattingList.toPersistentList())
                 )
@@ -43,13 +41,12 @@ class ChattingViewModel @Inject constructor(
                 _state.value = _state.value.copy(
                     uiState = UiState.Failure(errorMessage)
                 )
-                Log.e("getChattingList", "getChattingList: $errorMessage")
                 showSnackBar(errorMessage)
             }
     }
 
     fun postChatting(clubId: Long, chattingRequestDto: ChattingRequestDto) = viewModelScope.launch {
-        chattingRepository.postChatting(clubId, chattingRequestDto)
+        clubRepository.postChatting(clubId, chattingRequestDto)
             .onSuccess {
                 _state.value = _state.value.copy(
                     chattingState = UiState.Success(it.message)
@@ -60,7 +57,6 @@ class ChattingViewModel @Inject constructor(
                 _state.value = _state.value.copy(
                     chattingState = UiState.Failure(errorMessage)
                 )
-                Log.e("postChatting", "postChatting: $errorMessage")
                 showSnackBar(errorMessage)
             }
     }
