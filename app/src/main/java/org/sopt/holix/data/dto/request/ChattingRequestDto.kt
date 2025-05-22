@@ -9,7 +9,7 @@ data class ChattingRequestDto(
     @SerialName("contents")
     val contents : String
 ) {
-    fun toDomainModel() = ChattingDataEntity(
+    fun toEntity() = ChattingDataEntity(
         contents = contents
     )
 }
