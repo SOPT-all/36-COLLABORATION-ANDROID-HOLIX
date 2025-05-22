@@ -24,6 +24,8 @@ object ServiceModule {
     fun provideChattingService(retrofit: Retrofit): ChattingService =
         retrofit.create(ChattingService::class.java)
 
+    @Provides
+    @Singleton
     fun provideClubService(retrofit: Retrofit): ClubService =
         retrofit.create(ClubService::class.java)
 
