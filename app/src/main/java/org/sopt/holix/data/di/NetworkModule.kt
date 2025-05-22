@@ -10,6 +10,7 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.holix.BuildConfig
+import org.sopt.holix.data.service.HomeService
 import retrofit2.Converter
 import retrofit2.Retrofit
 import java.util.concurrent.TimeUnit
@@ -54,4 +55,11 @@ object NetworkModule {
         .addConverterFactory(converterFactory)
         .client(client)
         .build()
+
+    @Provides
+    @Singleton
+    fun provideHomeService(
+        retrofit: Retrofit
+    ): HomeService = retrofit.create(HomeService::class.java)
+
 }

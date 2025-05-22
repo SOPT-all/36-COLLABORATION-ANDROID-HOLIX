@@ -1,8 +1,8 @@
 package org.sopt.holix.presentation.mapper
 
 import org.sopt.holix.domain.model.Study
-import org.sopt.holix.domain.model.StudyData
-import org.sopt.holix.domain.model.Tag
+import org.sopt.holix.domain.model.home.StudyData
+import org.sopt.holix.domain.model.home.Tag
 import org.sopt.holix.presentation.home.model.StudyDataUiModel
 import org.sopt.holix.presentation.home.model.StudyUiModel
 import org.sopt.holix.presentation.home.model.TagUiModel

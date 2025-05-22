@@ -11,13 +11,14 @@ import androidx.compose.ui.unit.dp
 import org.sopt.holix.core.designsystem.theme.Blue
 import org.sopt.holix.core.designsystem.theme.Gray06
 import org.sopt.holix.core.designsystem.theme.HolixTheme
+import org.sopt.holix.domain.model.home.Tag
 import org.sopt.holix.presentation.home.model.TagUiModel
 
 
 @Composable
 fun TagChip(
     modifier: Modifier = Modifier,
-    tag: TagUiModel) {
+    tag: Tag) {
     Box(
         modifier = modifier
             .border(

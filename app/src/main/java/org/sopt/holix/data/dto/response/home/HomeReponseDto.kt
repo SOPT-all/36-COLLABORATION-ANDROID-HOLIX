@@ -1,13 +1,13 @@
-package org.sopt.holix.data.dto.response
+package org.sopt.holix.data.dto.response.home
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
-import org.sopt.holix.domain.model.Study
-import org.sopt.holix.domain.model.StudyData
-import org.sopt.holix.domain.model.Tag
+import org.sopt.holix.domain.model.home.StudyEntity
+import org.sopt.holix.domain.model.home.StudyData
+import org.sopt.holix.domain.model.home.Tag
 
 @Serializable
-data class StudyResponseDto(
+data class HomeResponseDto(
     @SerialName("code")
     val code: Int,
     @SerialName("message")
@@ -26,8 +26,8 @@ data class StudyDataDto(
     val insightStudies: List<StudyDto>,
     @SerialName("newStudies")
     val newStudies: List<StudyDto>,
-    @SerialName("recommendStudies")
-    val recommendStudies: List<StudyDto>,
+    @SerialName("recommendedStudies")
+    val recommendedStudies: List<StudyDto>,
     @SerialName("freeStudies")
     val freeStudies: List<StudyDto>
 ) {
@@ -35,7 +35,7 @@ data class StudyDataDto(
         passionateStudies = passionateStudies.map { it.toDomainModel() },
         insightStudies = insightStudies.map { it.toDomainModel() },
         newStudies = newStudies.map { it.toDomainModel() },
-        recommendStudies = recommendStudies.map { it.toDomainModel() },
+        recommendedStudies = recommendedStudies.map { it.toDomainModel() },
         freeStudies = freeStudies.map { it.toDomainModel() }
     )
 }
@@ -57,7 +57,7 @@ data class StudyDto(
     @SerialName("category")
     val category: String
 ) {
-    fun toDomainModel(): Study = Study(
+    fun toDomainModel(): StudyEntity = StudyEntity(
         id = studyId,
         title = studyTitle,
         leader = studyLeader,

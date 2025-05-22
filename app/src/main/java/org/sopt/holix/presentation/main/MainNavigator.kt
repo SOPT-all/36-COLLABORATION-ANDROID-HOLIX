@@ -15,7 +15,7 @@ class MainNavigator(
     val navController: NavHostController
 ) {
     // 화면 보기 위해서 시작 위치 MyClub 임의설정
-    val startDestination = MainTabRoute.MyClub
+    val startDestination = MainTabRoute.Home
 
     fun navigateUp() {
         navController.navigateUp()

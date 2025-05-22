@@ -6,11 +6,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.sopt.holix.data.repository.ClubRepositoryImpl
 import org.sopt.holix.data.repository.DummyRepositoryImpl
+import org.sopt.holix.data.repository.HomeRepositoryImpl
 import org.sopt.holix.data.repository.MainRepositoryImpl
 import org.sopt.holix.data.repository.chatting.ChattingRepositoryImpl
 import org.sopt.holix.domain.repository.ChattingRepository
 import org.sopt.holix.domain.repository.ClubRepository
 import org.sopt.holix.domain.repository.DummyRepository
+import org.sopt.holix.domain.repository.HomeRepository
 import org.sopt.holix.domain.repository.MainRepository
 
 @Module
@@ -27,4 +29,8 @@ internal interface RepositoryModule {
 
     @Binds
     fun bindChattingRepository(chattingRepositoryImpl: ChattingRepositoryImpl): ChattingRepository
+
+    @Binds
+    fun bindHomeRepository(homeRepositoryImpl: HomeRepositoryImpl): HomeRepository
+
 }

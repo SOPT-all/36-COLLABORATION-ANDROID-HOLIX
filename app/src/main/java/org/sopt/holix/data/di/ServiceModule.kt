@@ -7,6 +7,7 @@ import dagger.hilt.components.SingletonComponent
 import org.sopt.holix.data.service.ChattingService
 import org.sopt.holix.data.service.ClubService
 import org.sopt.holix.data.service.DummyService
+import org.sopt.holix.data.service.HomeService
 import org.sopt.holix.data.service.MainService
 import retrofit2.Retrofit
 import javax.inject.Singleton
@@ -18,6 +19,11 @@ object ServiceModule {
     @Singleton
     fun provideDummyService(retrofit: Retrofit): DummyService =
         retrofit.create(DummyService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideHomeService(retrofit: Retrofit): HomeService =
+        retrofit.create(HomeService::class.java)
 
     @Provides
     @Singleton
