@@ -7,6 +7,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
+import org.sopt.holix.presentation.club_detail_home.clubDetailNavGraph
 import org.sopt.holix.presentation.dummy.dummyNavGraph
 import org.sopt.holix.presentation.dummy.next.dummyNextNavGraph
 import org.sopt.holix.presentation.myclub.myClubNavGraph
@@ -40,6 +41,11 @@ fun HolixNavHost(
             paddingValues = paddingValues,
             navigateUp = navigator::navigateUp,
             navigateClubDetailHome = navigator::navigateClubDetailHome,
+            snackBarHostState = snackBarHostState
+        )
+        clubDetailNavGraph(
+            paddingValues = paddingValues,
+            navigateUp = navigator::navigateUp,
             snackBarHostState = snackBarHostState
         )
     }

@@ -17,8 +17,8 @@ internal interface RepositoryModule {
     @Binds
     fun bindDummyRepository(dummyRepositoryImpl: DummyRepositoryImpl): DummyRepository
 
-    @Binds
-    fun bindMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
+//    @Binds
+//    fun bindMainRepository(mainRepositoryImpl: MainRepositoryImpl): MainRepository
 
     @Binds
     fun bindClubRepository(clubRepositoryImpl: ClubRepositoryImpl): ClubRepository

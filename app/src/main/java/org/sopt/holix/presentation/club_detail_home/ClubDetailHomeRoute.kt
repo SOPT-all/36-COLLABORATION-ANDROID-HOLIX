@@ -46,6 +46,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.ui.input.pointer.motionEventSpy
+import org.sopt.holix.domain.model.ClubDetailEntity
 
 enum class ClubMenuItem(val label: String, @DrawableRes val iconRes: Int) {
     MEETING("모임", R.drawable.ic_club_category_4),
@@ -62,7 +63,6 @@ enum class ClubMenuItem(val label: String, @DrawableRes val iconRes: Int) {
 fun ClubDetailHomeRoute(
     paddingValues: PaddingValues,
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
     snackBarHostState: SnackbarHostState,
     viewModel: ClubDetailHomeViewModel = hiltViewModel()
 ) {
@@ -70,7 +70,7 @@ fun ClubDetailHomeRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.getClubDetailHomeUsers()
+        viewModel.getClubDetail(1)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -80,7 +80,6 @@ fun ClubDetailHomeRoute(
                     sideEffect.message
                 )
 
-                ClubDetailHomeSideEffect.NavigateNext -> navigateNext()
                 ClubDetailHomeSideEffect.NavigateUp -> navigateUp()
                 else -> Unit
             }
@@ -90,7 +89,6 @@ fun ClubDetailHomeRoute(
     ClubDetailHomeScreen(
         paddingValues = paddingValues,
         navigateUp = viewModel::navigateUp,
-        navigateNext = viewModel::navigateNext,
         state = state.uiState
     )
 }
@@ -99,8 +97,7 @@ fun ClubDetailHomeRoute(
 fun ClubDetailHomeScreen(
     paddingValues: PaddingValues,
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
-    state: UiState<PersistentList<DummyUser>>,
+    state: UiState<ClubDetailEntity>,
     modifier: Modifier = Modifier
 ) {
     val systemUiController = rememberSystemUiController()
@@ -164,7 +161,7 @@ fun ClubDetailHomeScreen(
                             .aspectRatio(360f / 324f)
                     ) {
                         AsyncImage(
-                            model = R.drawable.img_club_main_and,
+                            model = state.data.url,
                             contentDescription = "배너 이미지",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
@@ -203,7 +200,7 @@ fun ClubDetailHomeScreen(
                         ) {
                             // Title
                             Text(
-                                text = "💰 디자이너로서 성공하고 싶은 사람들이 모인 방",
+                                text = state.data.title,
                                 style = HolixTheme.typography.title1B17,
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -220,7 +217,7 @@ fun ClubDetailHomeScreen(
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = "멤버 130/500",
+                                    text = state.data.participants,
                                     style = HolixTheme.typography.body6M13,
                                     color = HolixTheme.colors.gray05
                                 )
@@ -248,7 +245,7 @@ fun ClubDetailHomeScreen(
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
-                                        text = "입장 후 간단하게 자기소개를 포함한 인사를 부탁드려요!",
+                                        text = state.data.notice,
                                         style = HolixTheme.typography.body6M13,
                                         color = HolixTheme.colors.gray07
                                     )
@@ -346,7 +343,6 @@ fun ClubDetailHomeScreen(
                                     .fillMaxWidth()
                                     .height(52.dp)
                                     .background(color = HolixTheme.colors.mainBlue)
-                                    .clickable { navigateNext() }
                                     .padding(vertical = 13.dp)
                                     .defaultMinSize(minHeight = 52.dp),
                                 style = HolixTheme.typography.title2Sb15,
@@ -368,15 +364,13 @@ private fun ClubDetailHomeScreenPreview() {
         ClubDetailHomeScreen(
             paddingValues = PaddingValues(),
             navigateUp = {},
-            navigateNext = {},
             state = UiState.Success(
-                persistentListOf(
-                    DummyUser(
-                        id = 1,
-                        firstName = "지우",
-                        lastName = "송",
-                        profile = "https://example.com/profile.jpg"
-                    )
+                ClubDetailEntity(
+                    clubId = 1,
+                    title = "",
+                    participants = "",
+                    url = "",
+                    notice = ""
                 )
             )
         )
