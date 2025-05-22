@@ -5,15 +5,17 @@ import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.sopt.holix.presentation.dummy.dummyNavGraph
 import org.sopt.holix.presentation.dummy.next.dummyNextNavGraph
+import org.sopt.holix.presentation.myclub.myClubNavGraph
 
 @Composable
 fun HolixNavHost(
     navigator: MainNavigator,
     paddingValues: PaddingValues,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
 ) {
     NavHost(
         navController = navigator.navController,
@@ -32,6 +34,13 @@ fun HolixNavHost(
 
         dummyNextNavGraph(
             paddingValues = paddingValues
+        )
+
+        myClubNavGraph(
+            paddingValues = paddingValues,
+            navigateUp = navigator::navigateUp,
+            navigateClubDetailHome = navigator::navigateClubDetailHome,
+            snackBarHostState = snackBarHostState
         )
     }
 }
