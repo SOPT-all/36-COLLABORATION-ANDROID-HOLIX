@@ -1,8 +1,5 @@
 package org.sopt.holix.presentation.home
 
-import android.R.id.message
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,11 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.handleError
-import org.sopt.holix.domain.model.home.StudyData
 import org.sopt.holix.domain.repository.HomeRepository
-import org.sopt.holix.presentation.dummy.DummySideEffect
-import org.sopt.holix.presentation.home.dummyData.dummyStudyList1
-import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
 import javax.inject.Inject
 
 @HiltViewModel
