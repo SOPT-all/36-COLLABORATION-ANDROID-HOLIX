@@ -1,12 +1,12 @@
 package org.sopt.holix.data.dto.response.chatting
 
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-data class ChattingBaseResponse<T> (
+@Serializable
+data class ChattingPostResponseDto(
     @SerialName("code")
     val code: Int,
     @SerialName("message")
     val message: String,
-    @SerialName("data")
-    val data: List<T>
 )
