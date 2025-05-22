@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import org.sopt.holix.presentation.dummy.dummyNavGraph
 import org.sopt.holix.presentation.dummy.next.dummyNextNavGraph
+import org.sopt.holix.presentation.home.homeNavGraph
 import org.sopt.holix.presentation.myclub.myClubNavGraph
 
 @Composable
@@ -42,5 +43,11 @@ fun HolixNavHost(
             navigateClubDetailHome = navigator::navigateClubDetailHome,
             snackBarHostState = snackBarHostState
         )
+
+        homeNavGraph(
+            paddingValues = paddingValues,
+            snackBarHostState = snackBarHostState
+        )
+
     }
 }

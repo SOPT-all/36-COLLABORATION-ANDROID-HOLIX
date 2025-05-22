@@ -1,5 +1,6 @@
 package org.sopt.holix.presentation.home
 
+import android.R.id.message
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
@@ -16,7 +17,7 @@ import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.handleError
 import org.sopt.holix.domain.model.home.StudyData
 import org.sopt.holix.domain.repository.HomeRepository
-import org.sopt.holix.presentation.home.HomeSideEffect.ShowSnackBar
+import org.sopt.holix.presentation.dummy.DummySideEffect
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList1
 import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
 import javax.inject.Inject
@@ -27,10 +28,12 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeState())
-    val state: StateFlow<HomeState> get() = _state.asStateFlow()
+    val state: StateFlow<HomeState>
+        get() = _state.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<HomeSideEffect>()
-    val sideEffect: SharedFlow<HomeSideEffect> get() = _sideEffect
+    val sideEffect: SharedFlow<HomeSideEffect>
+        get() = _sideEffect
 
     fun getHomeStudyData() = viewModelScope.launch {
         runCatching { homeRepository.getHomeData() }
@@ -46,29 +49,23 @@ class HomeViewModel @Inject constructor(
                         )
                     )
                 )
+                _sideEffect.emit(HomeSideEffect.ShowSnackBar("성공..."))
             }.onFailure { throwable ->
                 val errorMessage = handleError(throwable)
                 _state.value = _state.value.copy(
                     uiState = UiState.Failure(errorMessage)
                 )
-                ShowSnackBar(errorMessage)
+                _sideEffect.emit(HomeSideEffect.ShowSnackBar("실패..."))
             }
     }
 
-        fun onTabSelected(index: Int) {
-            _state.value = _state.value.copy(selectedTab = index)
-        }
+    fun onTabSelected(index: Int) {
+        _state.value = _state.value.copy(selectedTab = index)
+    }
 
-        fun onSearchChanged(newValue: String) {
-            _state.value = _state.value.copy(search = newValue)
-        }
+    fun onSearchChanged(newValue: String) {
+        _state.value = _state.value.copy(search = newValue)
+    }
 
-        fun showSnackBar(message: String) = viewModelScope.launch {
-            _sideEffect.emit(HomeSideEffect.ShowSnackBar(message))
-        }
-
-        fun navigateToClubDetailHome() = viewModelScope.launch {
-            _sideEffect.emit(HomeSideEffect.NavigateNext)
-        }
 
 }

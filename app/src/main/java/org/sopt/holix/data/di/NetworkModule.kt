@@ -56,10 +56,10 @@ object NetworkModule {
         .client(client)
         .build()
 
-    @Provides
-    @Singleton
-    fun provideHomeService(
-        retrofit: Retrofit
-    ): HomeService = retrofit.create(HomeService::class.java)
+//    @Provides
+//    @Singleton
+//    fun provideHomeService(
+//        retrofit: Retrofit
+//    ): HomeService = retrofit.create(HomeService::class.java)
 
 }
