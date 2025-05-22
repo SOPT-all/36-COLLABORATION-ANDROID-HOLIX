@@ -142,10 +142,11 @@ fun ClubDetailHomeScreen(
         }
 
         is UiState.Success -> {
-            Column(
+            // Updated layout for loaded state
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = HolixTheme.colors.white)
+                    .background(HolixTheme.colors.white)
                     .then(modifier)
                     .padding(paddingValues)
             ) {
@@ -154,7 +155,6 @@ fun ClubDetailHomeScreen(
                         .fillMaxSize()
                         .systemBarsPadding()
                 ) {
-                    // 배너이미지와 상단바를 겹치게 Box로 감싸기
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -183,8 +183,7 @@ fun ClubDetailHomeScreen(
                             onSearchClick = {}
                         )
                     }
-
-                    val clubMenuItems = ClubMenuItem.items
+                    // Main content card
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -198,14 +197,11 @@ fun ClubDetailHomeScreen(
                                 .background(HolixTheme.colors.white)
                                 .padding(top = 20.dp, start = 16.dp, end = 16.dp, bottom = 12.dp)
                         ) {
-                            // Title
                             Text(
                                 text = state.data.title,
                                 style = HolixTheme.typography.title1B17,
-                                modifier = Modifier
-                                    .fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth()
                             )
-                            // Member info
                             Row(
                                 modifier = Modifier.padding(top = 12.dp, bottom = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically
@@ -222,7 +218,6 @@ fun ClubDetailHomeScreen(
                                     color = HolixTheme.colors.gray05
                                 )
                             }
-                            // 공지
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -263,12 +258,10 @@ fun ClubDetailHomeScreen(
                                     .fillMaxWidth()
                             )
                             Divider(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth(),
                                 color = HolixTheme.colors.gray01,
                                 thickness = 5.dp
                             )
-                            // 메뉴바
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -315,42 +308,34 @@ fun ClubDetailHomeScreen(
                             }
                         }
                     }
-                    // 말풍선 + 채팅 버튼을 Box의 하단에 고정
-                    Box(
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+                // 말풍선, 채팅 입장 버튼
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.speech_bubble_and),
+                        contentDescription = "채팅 안내 말풍선",
                         modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = HolixTheme.colors.white)
-                            .padding(paddingValues)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.BottomCenter)
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.speech_bubble_and),
-                                contentDescription = "채팅 안내 말풍선",
-                                modifier = Modifier
-                                    .padding(start = 16.dp)
-                                    .align(Alignment.Start)
-                            )
-                            Spacer(modifier = Modifier
-                                .height(9.dp)
-                            )
-                            Text(
-                                text = "채팅 입장하기",
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(52.dp)
-                                    .background(color = HolixTheme.colors.mainBlue)
-                                    .padding(vertical = 13.dp)
-                                    .defaultMinSize(minHeight = 52.dp),
-                                style = HolixTheme.typography.title2Sb15,
-                                color = HolixTheme.colors.white,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
+                            .padding(start = 16.dp)
+                            .align(Alignment.Start)
+                    )
+                    Spacer(modifier = Modifier.height(9.dp))
+                    Text(
+                        text = "채팅 입장하기",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp)
+                            .background(color = HolixTheme.colors.mainBlue)
+                            .padding(vertical = 13.dp)
+                            .defaultMinSize(minHeight = 52.dp),
+                        style = HolixTheme.typography.title2Sb15,
+                        color = HolixTheme.colors.white,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
