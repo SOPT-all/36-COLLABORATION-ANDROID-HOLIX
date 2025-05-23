@@ -2,7 +2,7 @@ package org.sopt.holix.data.service
 
 import org.sopt.holix.data.dto.request.ChattingRequestDto
 import org.sopt.holix.data.dto.response.BaseResponse
-import org.sopt.holix.data.dto.response.chatting.ChattingListWrapperDto
+import org.sopt.holix.data.dto.response.chatting.ChattingListDto
 import org.sopt.holix.data.dto.response.chatting.ChattingPostResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,7 +13,7 @@ interface ClubService {
     @GET("api/v1/club/{clubId}/chat")
     suspend fun getChattingList(
         @Path(value = "clubId") clubId : Long
-    ) : BaseResponse<ChattingListWrapperDto>
+    ) : BaseResponse<ChattingListDto>
 
 
     @POST("api/v1/club/{clubId}/chat")
