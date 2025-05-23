@@ -25,6 +25,7 @@ import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Gray03
 import org.sopt.holix.core.designsystem.theme.Gray04
 import org.sopt.holix.core.designsystem.theme.HolixTheme
+import org.sopt.holix.domain.model.home.Study
 import org.sopt.holix.domain.model.home.StudyEntity
 
 
@@ -32,7 +33,7 @@ import org.sopt.holix.domain.model.home.StudyEntity
 fun CourseSection(
     modifier: Modifier = Modifier,
     title: String,
-    studies: List<StudyEntity>
+    studies: List<Study>
 ) {
     Column(
         modifier = modifier
@@ -72,7 +73,7 @@ fun CourseSection(
 
 @Composable
 fun CourseCardItem(
-    study: StudyEntity,
+    study: Study,
     modifier: Modifier = Modifier
 ) {
     Column(

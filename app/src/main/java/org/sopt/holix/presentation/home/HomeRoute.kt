@@ -28,13 +28,13 @@ import kotlinx.collections.immutable.PersistentList
 import org.sopt.holix.core.designsystem.theme.Gray01
 import org.sopt.holix.core.designsystem.theme.White
 import org.sopt.holix.core.util.UiState
-import org.sopt.holix.domain.model.home.StudyEntity
 import org.sopt.holix.presentation.home.component.BannerCarousel
 import org.sopt.holix.presentation.home.component.CategoryChips
 import org.sopt.holix.presentation.home.component.CourseSection
 import org.sopt.holix.presentation.home.component.SearchTopBar
 import org.sopt.holix.presentation.home.component.TabRowSection
 import androidx.compose.runtime.getValue
+import org.sopt.holix.domain.model.home.Study
 
 @Composable
 fun HomeRoute(
@@ -75,7 +75,7 @@ fun HomeScreen(
     paddingValues: PaddingValues,
     search: String,
     selectedTab: Int,
-    uiState: UiState<PersistentList<List<StudyEntity>>>,
+    uiState: UiState<PersistentList<List<Study>>>,
     onSearchChanged: (String) -> Unit,
     onTabSelected: (Int) -> Unit
 ) {
