@@ -13,14 +13,12 @@ fun NavController.navigateToChattingHamburger(navOptions: NavOptions? = null) = 
 
 fun NavGraphBuilder.chattingHamburgerNavGraph(
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
     snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
 ) {
     composable<Route.ChattingDetailHamburger> {
         ChattingHamburgerRoute(
             navigateUp = navigateUp,
-            navigateNext = navigateNext,
             snackBarHostState = snackBarHostState,
             modifier = modifier
         )
