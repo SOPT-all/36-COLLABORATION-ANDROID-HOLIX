@@ -13,3 +13,5 @@ data class ChattingRequestDto(
         contents = contents
     )
 }
+
+fun ChattingDataEntity.toDto() = ChattingRequestDto(contents = contents)

@@ -6,6 +6,12 @@ import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingType
 
 @Serializable
+data class ChattingListDto(
+    @SerialName("chattingList")
+    val chattingList: List<ChattingResponseDto>
+)
+
+@Serializable
 data class ChattingResponseDto(
     @SerialName("chattingId")
     val chattingId : Long,
