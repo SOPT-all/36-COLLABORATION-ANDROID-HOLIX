@@ -8,18 +8,6 @@ import org.sopt.holix.domain.model.home.Tag
 
 @Serializable
 data class HomeResponseDto(
-    @SerialName("code")
-    val code: Int,
-    @SerialName("message")
-    val message: String,
-    @SerialName("data")
-    val data: StudyEntityDto
-) {
-    fun toEntity(): StudyEntity = data.toEntity()
-}
-
-@Serializable
-data class StudyEntityDto(
     @SerialName("passionateStudies")
     val passionateStudies: List<StudyDto>,
     @SerialName("insightStudies")
@@ -42,20 +30,13 @@ data class StudyEntityDto(
 
 @Serializable
 data class StudyDto(
-    @SerialName("studyId")
-    val studyId: Int,
-    @SerialName("studyTitle")
-    val studyTitle: String,
-    @SerialName("studyLeader")
-    val studyLeader: String,
-    @SerialName("price")
-    val price: String,
-    @SerialName("url")
-    val url: String,
-    @SerialName("tags")
-    val tags: List<TagDto>,
-    @SerialName("category")
-    val category: String
+    @SerialName("studyId") val studyId: Int,
+    @SerialName("studyTitle") val studyTitle: String,
+    @SerialName("studyLeader") val studyLeader: String,
+    @SerialName("price") val price: String,
+    @SerialName("url") val url: String,
+    @SerialName("tags") val tags: List<TagDto>,
+    @SerialName("category") val category: String
 ) {
     fun toEntity(): Study = Study(
         id = studyId,
@@ -70,12 +51,9 @@ data class StudyDto(
 
 @Serializable
 data class TagDto(
-    @SerialName("tagId")
-    val tagId: Int,
-    @SerialName("tagName")
-    val tagName: String,
-    @SerialName("tagColor")
-    val tagColor: String
+    @SerialName("tagId") val tagId: Int,
+    @SerialName("tagName") val tagName: String,
+    @SerialName("tagColor") val tagColor: String
 ) {
     fun toEntity(): Tag = Tag(
         name = tagName,
