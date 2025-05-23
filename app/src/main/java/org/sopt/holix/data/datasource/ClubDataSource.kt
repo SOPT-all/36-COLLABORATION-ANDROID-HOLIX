@@ -7,4 +7,5 @@ class ClubDataSource @Inject constructor (
     private val clubService: ClubService
 ) {
     suspend fun getMyClubsList() = clubService.getMyClubList()
+    suspend fun getClubDetail(clubId: Long) = clubService.getClubDetail(clubId)
 }
