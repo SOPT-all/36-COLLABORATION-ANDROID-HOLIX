@@ -1,6 +1,6 @@
 package org.sopt.holix.domain.model.home
 
-data class StudyEntity(
+data class Study(
     val id: Int,
     val title: String,
     val leader: String,
@@ -15,10 +15,10 @@ data class Tag(
     val color: String
 )
 
-data class StudyData(
-    val passionateStudies: List<StudyEntity>,
-    val insightStudies: List<StudyEntity>,
-    val newStudies: List<StudyEntity>,
-    val recommendedStudies: List<StudyEntity>,
-    val freeStudies: List<StudyEntity>
+data class StudyEntity(
+    val passionateStudies: List<Study>,
+    val insightStudies: List<Study>,
+    val newStudies: List<Study>,
+    val recommendedStudies: List<Study>,
+    val freeStudies: List<Study>
 )

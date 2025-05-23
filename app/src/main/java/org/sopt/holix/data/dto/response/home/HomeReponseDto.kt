@@ -2,8 +2,8 @@ package org.sopt.holix.data.dto.response.home
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import org.sopt.holix.domain.model.home.Study
 import org.sopt.holix.domain.model.home.StudyEntity
-import org.sopt.holix.domain.model.home.StudyData
 import org.sopt.holix.domain.model.home.Tag
 
 @Serializable
@@ -15,7 +15,7 @@ data class HomeResponseDto(
     @SerialName("data")
     val data: StudyDataDto
 ) {
-    fun toDomainModel(): StudyData = data.toDomainModel()
+    fun toEntity(): StudyEntity = data.toEntity()
 }
 
 @Serializable
@@ -31,12 +31,12 @@ data class StudyDataDto(
     @SerialName("freeStudies")
     val freeStudies: List<StudyDto>
 ) {
-    fun toDomainModel(): StudyData = StudyData(
-        passionateStudies = passionateStudies.map { it.toDomainModel() },
-        insightStudies = insightStudies.map { it.toDomainModel() },
-        newStudies = newStudies.map { it.toDomainModel() },
-        recommendedStudies = recommendedStudies.map { it.toDomainModel() },
-        freeStudies = freeStudies.map { it.toDomainModel() }
+    fun toEntity(): StudyEntity = StudyEntity(
+        passionateStudies = passionateStudies.map { it.toEntity() },
+        insightStudies = insightStudies.map { it.toEntity() },
+        newStudies = newStudies.map { it.toEntity() },
+        recommendedStudies = recommendedStudies.map { it.toEntity() },
+        freeStudies = freeStudies.map { it.toEntity() }
     )
 }
 
@@ -57,13 +57,13 @@ data class StudyDto(
     @SerialName("category")
     val category: String
 ) {
-    fun toDomainModel(): StudyEntity = StudyEntity(
+    fun toEntity(): Study = Study(
         id = studyId,
         title = studyTitle,
         leader = studyLeader,
         price = price,
         imageUrl = url,
-        tags = tags.map { it.toDomainModel() },
+        tags = tags.map { it.toEntity() },
         category = category
     )
 }
@@ -77,8 +77,9 @@ data class TagDto(
     @SerialName("tagColor")
     val tagColor: String
 ) {
-    fun toDomainModel(): Tag = Tag(
+    fun toEntity(): Tag = Tag(
         name = tagName,
         color = tagColor
     )
 }
+

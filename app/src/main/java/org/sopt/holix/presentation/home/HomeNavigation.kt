@@ -4,14 +4,14 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.SnackbarHostState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
+import org.sopt.holix.core.navigation.MainTabRoute
 
-const val HOME_ROUTE = "home"
 
 fun NavGraphBuilder.homeNavGraph(
     paddingValues: PaddingValues,
     snackBarHostState: SnackbarHostState
 ) {
-    composable(route = HOME_ROUTE) {
+    composable<MainTabRoute.Home> {
         HomeRoute(
             paddingValues = paddingValues,
             snackBarHostState = snackBarHostState
