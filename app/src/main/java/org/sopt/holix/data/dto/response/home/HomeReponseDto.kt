@@ -13,13 +13,13 @@ data class HomeResponseDto(
     @SerialName("message")
     val message: String,
     @SerialName("data")
-    val data: StudyDataDto
+    val data: StudyEntityDto
 ) {
     fun toEntity(): StudyEntity = data.toEntity()
 }
 
 @Serializable
-data class StudyDataDto(
+data class StudyEntityDto(
     @SerialName("passionateStudies")
     val passionateStudies: List<StudyDto>,
     @SerialName("insightStudies")

@@ -1,7 +1,8 @@
 package org.sopt.holix.domain.repository
 
-import org.sopt.holix.domain.model.home.StudyData
+import org.sopt.holix.domain.model.home.Study
+import org.sopt.holix.domain.model.home.StudyEntity
 
 interface HomeRepository {
-    suspend fun getHomeData(): StudyData
+    suspend fun getHomeData(): StudyEntity
 }

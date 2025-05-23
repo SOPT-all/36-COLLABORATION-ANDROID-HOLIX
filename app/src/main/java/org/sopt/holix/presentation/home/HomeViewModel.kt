@@ -31,15 +31,15 @@ class HomeViewModel @Inject constructor(
 
     fun getHomeStudyData() = viewModelScope.launch {
         runCatching { homeRepository.getHomeData() }
-            .onSuccess { studyData ->
+            .onSuccess { studyEntity ->
                 _state.value = _state.value.copy(
                     uiState = UiState.Success(
                         persistentListOf(
-                            studyData.passionateStudies,
-                            studyData.insightStudies,
-                            studyData.newStudies,
-                            studyData.recommendedStudies,
-                            studyData.freeStudies
+                            studyEntity.passionateStudies,
+                            studyEntity.insightStudies,
+                            studyEntity.newStudies,
+                            studyEntity.recommendedStudies,
+                            studyEntity.freeStudies
                         )
                     )
                 )
