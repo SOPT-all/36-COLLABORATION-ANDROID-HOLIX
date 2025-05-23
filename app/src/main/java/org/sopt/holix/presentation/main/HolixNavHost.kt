@@ -46,13 +46,12 @@ fun HolixNavHost(
 
         chattingNavGraph(
             navigateUp = navigator::navigateUp,
-            navigateNext = navigator::navigateChattingDetail,
+            navigateNext = navigator::navigateChattingHamburger,
             snackBarHostState = snackBarHostState
         )
 
         chattingHamburgerNavGraph(
             navigateUp = navigator::navigateUp,
-            navigateNext = navigator::navigateChattingDetail,
             snackBarHostState = snackBarHostState
         )
     }

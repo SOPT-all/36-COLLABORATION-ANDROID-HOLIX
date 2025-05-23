@@ -43,7 +43,7 @@ class MainNavigator(
         navController.navigateToChatting(navOptions = navOptions)
     }
 
-    fun navigateChattingDetail(navOptions: NavOptions? = null) {
+    fun navigateChattingHamburger(navOptions: NavOptions? = null) {
         navController.navigateToChattingHamburger(navOptions)
     }
 }

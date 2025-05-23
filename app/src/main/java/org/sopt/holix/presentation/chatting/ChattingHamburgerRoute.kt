@@ -39,7 +39,6 @@ import org.sopt.holix.presentation.chatting.components.detail.hamburger.Chatting
 @Composable
 fun ChattingHamburgerRoute(
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
     snackBarHostState: SnackbarHostState,
     modifier: Modifier = Modifier,
     viewModel: ChattingViewModel = hiltViewModel()
@@ -64,7 +63,7 @@ fun ChattingHamburgerRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is ChattingSideEffect.ShowSnackBar -> snackBarHostState.showSnackbar(sideEffect.message)
-                    ChattingSideEffect.NavigateNext -> navigateNext()
+                    ChattingSideEffect.NavigateNext -> {}
                     ChattingSideEffect.NavigateUp -> navigateUp()
                 }
             }
@@ -140,7 +139,6 @@ fun ChattingHamburgerScreen(
                     }
 
                     is UiState.Success -> {
-                        //Todo : 반복으로 할지 나눠서할지?
                         items(hamburgerMenuList.size) {hamburgerMenuIndex ->
                             ChattingHamburgerMenu(
                                 imageVector = ImageVector.vectorResource(hamburgerMenuList[hamburgerMenuIndex].first),
