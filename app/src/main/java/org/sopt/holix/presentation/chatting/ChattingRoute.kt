@@ -19,7 +19,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -33,13 +32,11 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
-import kotlinx.coroutines.CoroutineScope
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.noRippleClickable
-import org.sopt.holix.data.dto.request.ChattingRequestDto
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingType
 import org.sopt.holix.presentation.chatting.components.detail.ChattingItem
@@ -64,7 +61,6 @@ fun ChattingRoute(
     LaunchedEffect(Unit) {
         //Todo : 나중에 클럽아이디 받아오는 데이터로 변경
         viewModel.getChattingList(1)
-        Log.d("ChattingRoute", "ChattingRoute: ${state.uiState}")
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -80,7 +76,7 @@ fun ChattingRoute(
 
     LaunchedEffect(state.isSendChatting) {
         if (state.isSendChatting) {
-            viewModel.postChatting(1, ChattingRequestDto(state.chattingText))
+            viewModel.postChatting(1, state.chattingText)
             viewModel.sendChatting()
             viewModel.fetchText("")
             viewModel.getChattingList(1)
