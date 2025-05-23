@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.handleError
-import org.sopt.holix.data.dto.request.ChattingRequestDto
+import org.sopt.holix.domain.model.chatting.ChattingDataEntity
 import org.sopt.holix.domain.repository.ClubRepository
 import javax.inject.Inject
 
@@ -30,11 +30,8 @@ class ChattingViewModel @Inject constructor(
     fun getChattingList(clubId: Long) = viewModelScope.launch {
         clubRepository.getChattingList(clubId = clubId)
             .onSuccess {
-                val chattingList = it.chattingList.map { chatting ->
-                    chatting.toEntity()
-                }
                 _state.value = _state.value.copy(
-                    uiState = UiState.Success(chattingList.toPersistentList())
+                    uiState = UiState.Success(it.toPersistentList())
                 )
             }.onFailure { throwable ->
                 val errorMessage = handleError(throwable)
@@ -45,8 +42,10 @@ class ChattingViewModel @Inject constructor(
             }
     }
 
-    fun postChatting(clubId: Long, chattingRequestDto: ChattingRequestDto) = viewModelScope.launch {
-        clubRepository.postChatting(clubId, chattingRequestDto)
+    fun postChatting(clubId: Long, contents: String) = viewModelScope.launch {
+        val chattingEntity = ChattingDataEntity(contents = contents)
+
+        clubRepository.postChatting(clubId, chattingEntity)
             .onSuccess {
                 _state.value = _state.value.copy(
                     chattingState = UiState.Success(it.message)
