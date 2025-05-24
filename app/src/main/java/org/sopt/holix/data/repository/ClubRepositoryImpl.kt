@@ -1,6 +1,7 @@
 package org.sopt.holix.data.repository
 
 import org.sopt.holix.data.datasource.ClubDataSource
+import org.sopt.holix.data.dto.request.toDto
 import org.sopt.holix.data.dto.response.chatting.ChattingPostResponseDto
 import org.sopt.holix.domain.model.chatting.ChattingDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
@@ -15,6 +16,7 @@ class ClubRepositoryImpl @Inject constructor(
     }
 
     override suspend fun postChatting(clubId: Long, chattingEntity: ChattingDataEntity): Result<ChattingPostResponseDto> = runCatching {
-        clubDataSource.postChatting(clubId, chattingEntity)
+        val chattingRequestDto = chattingEntity.toDto()
+        clubDataSource.postChatting(clubId, chattingRequestDto)
     }
 }
