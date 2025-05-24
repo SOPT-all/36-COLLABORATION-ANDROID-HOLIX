@@ -63,8 +63,8 @@ fun ChattingHamburgerRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is ChattingSideEffect.ShowSnackBar -> snackBarHostState.showSnackbar(sideEffect.message)
-                    ChattingSideEffect.NavigateNext -> {}
                     ChattingSideEffect.NavigateUp -> navigateUp()
+                    else -> {}
                 }
             }
     }
