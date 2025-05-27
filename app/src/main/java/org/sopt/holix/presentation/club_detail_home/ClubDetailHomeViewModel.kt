@@ -6,31 +6,33 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.handleError
+import org.sopt.holix.domain.repository.ClubRepository
 import org.sopt.holix.domain.repository.DummyRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class ClubDetailHomeViewModel @Inject constructor(
-    private val dummyRepository: DummyRepository
+    private val clubRepository: ClubRepository
 ): ViewModel() {
     private val _state = MutableStateFlow(ClubDetailHomeState())
     val state: StateFlow<ClubDetailHomeState>
         get() = _state.asStateFlow()
 
     private val _sideEffect = MutableSharedFlow<ClubDetailHomeSideEffect>()
-    val sideEffect: MutableSharedFlow<ClubDetailHomeSideEffect>
+    val sideEffect: SharedFlow<ClubDetailHomeSideEffect>
         get() = _sideEffect
 
-    fun getClubDetailHomeUsers() = viewModelScope.launch {
-        dummyRepository.getDummyList()
+    fun getClubDetail(clubId: Long) = viewModelScope.launch {
+        clubRepository.getClubDetail(clubId)
             .onSuccess {
                 _state.value = _state.value.copy(
-                    uiState = UiState.Success(it.toPersistentList())
+                    uiState = UiState.Success(it)
                 )
             }.onFailure { throwable ->
                 val errorMessage = handleError(throwable)
@@ -47,10 +49,6 @@ class ClubDetailHomeViewModel @Inject constructor(
 
     fun navigateUp() = viewModelScope.launch {
         _sideEffect.emit(ClubDetailHomeSideEffect.NavigateUp)
-    }
-
-    fun navigateNext() = viewModelScope.launch {
-        _sideEffect.emit(ClubDetailHomeSideEffect.NavigateNext)
     }
 
 }

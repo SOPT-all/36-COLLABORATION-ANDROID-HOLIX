@@ -5,6 +5,8 @@ import org.sopt.holix.data.dto.request.toDto
 import org.sopt.holix.data.dto.response.chatting.ChattingPostResponseDto
 import org.sopt.holix.domain.model.chatting.ChattingDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
+import org.sopt.holix.domain.model.ClubDetailEntity
+import org.sopt.holix.domain.model.MyClubEntity
 import org.sopt.holix.domain.repository.ClubRepository
 import javax.inject.Inject
 
@@ -19,4 +21,13 @@ class ClubRepositoryImpl @Inject constructor(
         val chattingRequestDto = chattingEntity.toDto()
         clubDataSource.postChatting(clubId, chattingRequestDto)
     }
+
+    override suspend fun getMyClubsList(): Result<List<MyClubEntity>> = runCatching {
+        clubDataSource.getMyClubsList().data.clubs.map { it.toEntity() }
+    }
+
+    override suspend fun getClubDetail(clubId: Long): Result<ClubDetailEntity> = runCatching {
+        clubDataSource.getClubDetail(clubId).data.toEntity()
+    }
 }
+

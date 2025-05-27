@@ -3,6 +3,8 @@
     <string name="profile">프로필</string>
     <string name="empty_string">데이터가 없습니다.</string>
     <string name="loading_string">로딩 중...</string>
+    <string name="title_activity_home_screen">HomeScreen</string>
+    <string name="search_placeholder">무엇을 배우고 싶으신가요?</string>
     <string name="back_content_description">뒤로 가기</string>
 
     <!--chatting screen-->

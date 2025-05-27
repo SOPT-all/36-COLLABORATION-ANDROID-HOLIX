@@ -4,6 +4,8 @@ import org.sopt.holix.data.dto.request.ChattingRequestDto
 import org.sopt.holix.data.dto.response.BaseResponse
 import org.sopt.holix.data.dto.response.chatting.ChattingListDto
 import org.sopt.holix.data.dto.response.chatting.ChattingPostResponseDto
+import org.sopt.holix.data.dto.response.myclub.MyClubResponseDto
+import org.sopt.holix.data.dto.response.ClubDetailResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -21,4 +23,10 @@ interface ClubService {
         @Path(value = "clubId") clubId : Long,
         @Body chattingRequest: ChattingRequestDto
     ) : ChattingPostResponseDto
+  
+    @GET("api/v1/club")
+    suspend fun getMyClubList(): BaseResponse<MyClubResponseDto>
+
+    @GET("api/v1/club/{clubId}")
+    suspend fun getClubDetail(@Path("clubId") clubId: Long): BaseResponse<ClubDetailResponseDto>
 }

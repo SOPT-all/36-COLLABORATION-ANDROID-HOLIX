@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,13 +12,15 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.holix.R
 import org.sopt.holix.core.util.UiState
+import org.sopt.holix.core.util.handleError
 import org.sopt.holix.domain.model.MyClubEntity
 import org.sopt.holix.domain.model.RecommendClubEntity
+import org.sopt.holix.domain.repository.ClubRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class MyClubViewModel @Inject constructor(
-
+    private val clubRepository: ClubRepository
 ): ViewModel() {
     private val _state = MutableStateFlow(MyClubState())
     val state: StateFlow<MyClubState>
@@ -27,42 +30,21 @@ class MyClubViewModel @Inject constructor(
     val sideEffect: MutableSharedFlow<MyClubSideEffect>
         get() = _sideEffect
 
-    fun getDummyMyClubList() = viewModelScope.launch {
-        _state.value = _state.value.copy(
-            UiState.Success(
-                data = persistentListOf(
-                    MyClubEntity(
-                        clubId = 1,
-                        title = "디자이너로서 성공하고 싶은 사람들이 모인 방",
-                        participants = "멤버 130명 / 500명",
-                        url = "https://picsum.photos/360",
-                        isPinned = true
-                    ),
-                    MyClubEntity(
-                        clubId = 2,
-                        title = "AI 도구 활용한 영상 만들기 질문 답변방",
-                        participants = "멤버 130명 / 500명",
-                        url = "https://picsum.photos/360",
-                        isPinned = false
-                    ),
-                    MyClubEntity(
-                        clubId = 3,
-                        title = "손글씨를 사랑하는 사람들의 모임",
-                        participants = "멤버 130명 / 500명",
-                        url = "https://picsum.photos/360",
-                        isPinned = true
-                    ),
-                    MyClubEntity(
-                        clubId = 4,
-                        title = "UX Writing 실무 파헤치기",
-                        participants = "멤버 998명 / 1,000명",
-                        url = "https://picsum.photos/360",
-                        isPinned = false
-                    )
+    fun getMyClubList() = viewModelScope.launch {
+        clubRepository.getMyClubsList()
+            .onSuccess {
+                _state.value = _state.value.copy(
+                    uiState = UiState.Success(it.toPersistentList())
                 )
-            )
-        )
+            }.onFailure { throwable ->
+                val errorMessage = handleError(throwable)
+                _state.value = _state.value.copy(
+                    uiState = UiState.Failure(errorMessage)
+                )
+                showSnackBar(errorMessage)
+            }
     }
+
     fun getRecommendClubList() = viewModelScope.launch {
         _state.value = _state.value.copy(
             recommendUiState = persistentListOf(

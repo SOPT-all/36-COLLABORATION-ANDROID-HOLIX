@@ -10,4 +10,7 @@ class ClubDataSource @Inject constructor (
     suspend fun getChattingList(clubId: Long) = clubService.getChattingList(clubId)
 
     suspend fun postChatting(clubId: Long, chattingRequestDto: ChattingRequestDto) = clubService.postChatting(clubId, chattingRequestDto)
+
+    suspend fun getMyClubsList() = clubService.getMyClubList()
+    suspend fun getClubDetail(clubId: Long) = clubService.getClubDetail(clubId)
 }

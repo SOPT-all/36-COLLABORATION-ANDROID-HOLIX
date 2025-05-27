@@ -40,13 +40,17 @@ import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.noRippleClickable
 import org.sopt.holix.domain.model.DummyUser
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.input.pointer.motionEventSpy
+import org.sopt.holix.domain.model.ClubDetailEntity
+
 
 
 @Composable
 fun ClubDetailHomeRoute(
     paddingValues: PaddingValues,
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
     snackBarHostState: SnackbarHostState,
     viewModel: ClubDetailHomeViewModel = hiltViewModel()
 ) {
@@ -54,7 +58,7 @@ fun ClubDetailHomeRoute(
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
-        viewModel.getClubDetailHomeUsers()
+        viewModel.getClubDetail(1)
     }
 
     LaunchedEffect(viewModel.sideEffect, lifecycleOwner) {
@@ -64,7 +68,6 @@ fun ClubDetailHomeRoute(
                     sideEffect.message
                 )
 
-                ClubDetailHomeSideEffect.NavigateNext -> navigateNext()
                 ClubDetailHomeSideEffect.NavigateUp -> navigateUp()
                 else -> Unit
             }
@@ -74,7 +77,6 @@ fun ClubDetailHomeRoute(
     ClubDetailHomeScreen(
         paddingValues = paddingValues,
         navigateUp = viewModel::navigateUp,
-        navigateNext = viewModel::navigateNext,
         state = state.uiState
     )
 }
@@ -83,8 +85,7 @@ fun ClubDetailHomeRoute(
 fun ClubDetailHomeScreen(
     paddingValues: PaddingValues,
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
-    state: UiState<PersistentList<DummyUser>>,
+    state: UiState<ClubDetailEntity>,
     modifier: Modifier = Modifier
 ) {
     val systemUiController = rememberSystemUiController()
@@ -129,10 +130,11 @@ fun ClubDetailHomeScreen(
         }
 
         is UiState.Success -> {
-            Column(
+            // Updated layout for loaded state
+            Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = HolixTheme.colors.white)
+                    .background(HolixTheme.colors.white)
                     .then(modifier)
                     .padding(paddingValues)
             ) {
@@ -141,15 +143,14 @@ fun ClubDetailHomeScreen(
                         .fillMaxSize()
                         .systemBarsPadding()
                 ) {
-                    // 배너이미지와 상단바를 겹치게 Box로 감싸기
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .aspectRatio(360f / 324f)
                     ) {
                         AsyncImage(
-                            model = R.drawable.img_club_main_and,
-                            contentDescription = stringResource(R.string.description_banner),
+                            model = state.data.url,
+                            contentDescription = "배너 이미지",
                             contentScale = ContentScale.Crop,
                             modifier = Modifier.fillMaxSize()
                         )
@@ -170,8 +171,7 @@ fun ClubDetailHomeScreen(
                             onSearchClick = {}
                         )
                     }
-
-                    val clubMenuItems = ClubMenuItem.items
+                    // Main content card
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -185,14 +185,11 @@ fun ClubDetailHomeScreen(
                                 .background(HolixTheme.colors.white)
                                 .padding(top = 20.dp, start = 16.dp, end = 16.dp, bottom = 12.dp)
                         ) {
-                            // Title
                             Text(
-                                text = "💰 디자이너로서 성공하고 싶은 사람들이 모인 방",
+                                text = state.data.title,
                                 style = HolixTheme.typography.title1B17,
-                                modifier = Modifier
-                                    .fillMaxWidth()
+                                modifier = Modifier.fillMaxWidth()
                             )
-                            // Member info
                             Row(
                                 modifier = Modifier.padding(top = 12.dp, bottom = 10.dp),
                                 verticalAlignment = Alignment.CenterVertically
@@ -204,12 +201,11 @@ fun ClubDetailHomeScreen(
                                 )
                                 Spacer(modifier = Modifier.width(4.dp))
                                 Text(
-                                    text = "멤버 130/500",
+                                    text = state.data.participants,
                                     style = HolixTheme.typography.body6M13,
                                     color = HolixTheme.colors.gray05
                                 )
                             }
-                            // 공지
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -232,7 +228,7 @@ fun ClubDetailHomeScreen(
                                     )
                                     Spacer(modifier = Modifier.width(8.dp))
                                     Text(
-                                        text = "입장 후 간단하게 자기소개를 포함한 인사를 부탁드려요!",
+                                        text = state.data.notice,
                                         style = HolixTheme.typography.body6M13,
                                         color = HolixTheme.colors.gray07
                                     )
@@ -250,12 +246,10 @@ fun ClubDetailHomeScreen(
                                     .fillMaxWidth()
                             )
                             Divider(
-                                modifier = Modifier
-                                    .fillMaxWidth(),
+                                modifier = Modifier.fillMaxWidth(),
                                 color = HolixTheme.colors.gray01,
                                 thickness = 5.dp
                             )
-                            // 메뉴바
                             Row(
                                 modifier = Modifier
                                     .fillMaxWidth()
@@ -302,43 +296,34 @@ fun ClubDetailHomeScreen(
                             }
                         }
                     }
-                    // 말풍선 + 채팅 버튼을 Box의 하단에 고정
-                    Box(
+                    Spacer(modifier = Modifier.weight(1f))
+                }
+                // 말풍선, 채팅 입장 버튼
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .align(Alignment.BottomCenter)
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.speech_bubble_and),
+                        contentDescription = "채팅 안내 말풍선",
                         modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = HolixTheme.colors.white)
-                            .padding(paddingValues)
-                    ) {
-                        Column(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .align(Alignment.BottomCenter)
-                        ) {
-                            Image(
-                                painter = painterResource(id = R.drawable.speech_bubble_and),
-                                contentDescription = stringResource(R.string.description_chat_bubble),
-                                modifier = Modifier
-                                    .padding(start = 16.dp)
-                                    .align(Alignment.Start)
-                            )
-                            Spacer(modifier = Modifier
-                                .height(9.dp)
-                            )
-                            Text(
-                                text = "채팅 입장하기",
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(52.dp)
-                                    .background(color = HolixTheme.colors.mainBlue)
-                                    .clickable { navigateNext() }
-                                    .padding(vertical = 13.dp)
-                                    .defaultMinSize(minHeight = 52.dp),
-                                style = HolixTheme.typography.title2Sb15,
-                                color = HolixTheme.colors.white,
-                                textAlign = TextAlign.Center
-                            )
-                        }
-                    }
+                            .padding(start = 16.dp)
+                            .align(Alignment.Start)
+                    )
+                    Spacer(modifier = Modifier.height(9.dp))
+                    Text(
+                        text = "채팅 입장하기",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(52.dp)
+                            .background(color = HolixTheme.colors.mainBlue)
+                            .padding(vertical = 13.dp)
+                            .defaultMinSize(minHeight = 52.dp),
+                        style = HolixTheme.typography.title2Sb15,
+                        color = HolixTheme.colors.white,
+                        textAlign = TextAlign.Center
+                    )
                 }
             }
         }
@@ -352,15 +337,13 @@ private fun ClubDetailHomeScreenPreview() {
         ClubDetailHomeScreen(
             paddingValues = PaddingValues(),
             navigateUp = {},
-            navigateNext = {},
             state = UiState.Success(
-                persistentListOf(
-                    DummyUser(
-                        id = 1,
-                        firstName = "지우",
-                        lastName = "송",
-                        profile = "https://example.com/profile.jpg"
-                    )
+                ClubDetailEntity(
+                    clubId = 1,
+                    title = "",
+                    participants = "",
+                    url = "",
+                    notice = ""
                 )
             )
         )
@@ -405,5 +388,4 @@ fun ClubDetailTopAppBar(
         }
     }
 }
-
 
