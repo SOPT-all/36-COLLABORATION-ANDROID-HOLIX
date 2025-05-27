@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.sopt.holix.data.service.ChattingService
 import org.sopt.holix.data.service.ClubService
 import org.sopt.holix.data.service.DummyService
 import org.sopt.holix.data.service.MainService

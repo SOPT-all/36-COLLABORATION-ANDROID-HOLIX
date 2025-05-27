@@ -1,14 +1,19 @@
 package org.sopt.holix.presentation.chatting
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Scaffold
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,15 +38,12 @@ import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.noRippleClickable
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
-import org.sopt.holix.domain.model.chatting.ChattingScreenType
 import org.sopt.holix.domain.model.chatting.ChattingType
 import org.sopt.holix.presentation.chatting.components.detail.ChattingItem
 import org.sopt.holix.presentation.chatting.components.detail.ChattingSystemMessage
 import org.sopt.holix.presentation.chatting.components.detail.ChattingTextField
-import org.sopt.holix.presentation.chatting.core.ChattingTopBar
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.Locale
+import org.sopt.holix.presentation.chatting.components.detail.ChattingTopBar
+import org.sopt.holix.presentation.chatting.utils.DateUtils.toFormattedTodayString
 
 @Composable
 fun ChattingRoute(
@@ -49,9 +51,11 @@ fun ChattingRoute(
     navigateUp: () -> Unit,
     navigateNext: () -> Unit,
     snackBarHostState: SnackbarHostState,
-    viewModel: ChattingViewModel = hiltViewModel()
+    modifier: Modifier = Modifier,
+    viewModel: ChattingViewModel = hiltViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val listState = rememberLazyListState()
     val lifecycleOwner = LocalLifecycleOwner.current
 
     LaunchedEffect(Unit) {
@@ -70,131 +74,156 @@ fun ChattingRoute(
             }
     }
 
-    //Todo : 나중에 이동 추가
+    LaunchedEffect(state.isSendChatting) {
+        if (state.isSendChatting) {
+            viewModel.postChatting(1, state.chattingText)
+            viewModel.sendChatting()
+            viewModel.fetchText("")
+            viewModel.getChattingList(1)
+        }
+    }
+
     ChattingScreen(
         paddingValues = paddingValues,
+        listState = listState,
+        chat = state.chattingText,
+        onTextChanged = viewModel::fetchText,
         navigateUp = navigateUp,
-        state = state.uiState
+        onClickHamburgerButton = navigateNext,
+        onClickSendButton = {
+            viewModel.sendChatting()
+        },
+        state = state.uiState,
+        modifier = modifier
     )
 }
 
 @Composable
 fun ChattingScreen(
     paddingValues: PaddingValues,
+    listState: LazyListState,
+    chat : String,
     navigateUp: () -> Unit,
+    onClickHamburgerButton : () -> Unit,
+    onClickSendButton : () -> Unit,
+    onTextChanged : (String) -> Unit,
     state: UiState<PersistentList<ChattingListDataEntity>>,
     modifier: Modifier = Modifier
 ) {
-    Scaffold(
+    if (state is UiState.Success) {
+        LaunchedEffect(state.data) {
+            val lastIndex = state.data.lastIndex
+            if (lastIndex >= 0) {
+                listState.animateScrollToItem(lastIndex)
+            }
+        }
+    }
+
+    Column (
         modifier = modifier
+            .statusBarsPadding()
             .navigationBarsPadding()
-            .padding(paddingValues),
-        containerColor = HolixTheme.colors.gray01,
-        topBar = {
-            ChattingTopBar(
-                screenType = ChattingScreenType.Detail,
-                navigateUp = navigateUp
-            )
-        },
+            .fillMaxSize()
+            .background(HolixTheme.colors.gray01)
+    ) {
+        ChattingTopBar(
+            navigateUp = navigateUp,
+            onClickHamburgerButton = {
+                onClickHamburgerButton()
+            }
+        )
 
-        bottomBar = {
-            ChattingTextField(
-                chat = "",
-                onTextChanged = {
-                    // TODO : api 추가 후 viewmodel로 구현예정
+        LazyColumn (
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(paddingValues)
+                .weight(1f)
+                .background(HolixTheme.colors.gray01),
+            state = listState,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            when (state) {
+                is UiState.Loading -> {
+                    item {
+                        Text(
+                            modifier = modifier
+                                .noRippleClickable { /*navigateUp()*/ },
+                            textAlign = TextAlign.Center,
+                            text = stringResource(R.string.loading_string),
+                            fontSize = 30.sp
+                        )
+                    }
                 }
-            )
-        },
 
-        content = {
-            LazyColumn (
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(it)
-                    .background(HolixTheme.colors.gray01),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
-                when (state) {
-                    is UiState.Loading -> {
-                        item {
-                            Text(
-                                modifier = modifier
-                                    .noRippleClickable { /*navigateUp()*/ },
-                                textAlign = TextAlign.Center,
-                                text = stringResource(R.string.loading_string),
-                                fontSize = 30.sp
-                            )
-                        }
+                is UiState.Empty -> {
+                    item {
+                        Text(
+                            modifier = modifier
+                                .noRippleClickable { /*navigateUp()*/ },
+                            textAlign = TextAlign.Center,
+                            text = stringResource(R.string.empty_string),
+                            fontSize = 30.sp
+                        )
+                    }
+                }
+
+                is UiState.Failure -> {
+                    item {
+                        Text(
+                            modifier = modifier
+                                .noRippleClickable { /*navigateUp()*/ },
+                            textAlign = TextAlign.Center,
+                            text = state.message,
+                            style = HolixTheme.typography.body1Sb15,
+                            color = HolixTheme.colors.alertRed
+                        )
+                    }
+                }
+
+                is UiState.Success -> {
+                    item {
+                        Text(
+                            text = state.data[0].createdAt.toFormattedTodayString(),
+                            style = HolixTheme.typography.label3R11,
+                            color = HolixTheme.colors.gray06,
+                            modifier = modifier
+                                .fillMaxWidth()
+                                .padding(top = 10.dp),
+                            textAlign = TextAlign.Center
+                        )
                     }
 
-                    is UiState.Empty -> {
-                        item {
-                            Text(
-                                modifier = modifier
-                                    .noRippleClickable { /*navigateUp()*/ },
-                                textAlign = TextAlign.Center,
-                                text = stringResource(R.string.empty_string),
-                                fontSize = 30.sp
-                            )
-                        }
-                    }
-
-                    is UiState.Failure -> {
-                        item {
-                            Text(
-                                modifier = modifier
-                                    .noRippleClickable { /*navigateUp()*/ },
-                                textAlign = TextAlign.Center,
-                                text = state.message,
-                                style = HolixTheme.typography.body1Sb15,
-                                color = HolixTheme.colors.alertRed
-                            )
-                        }
-                    }
-
-                    is UiState.Success -> {
-                        item {
-                            val dateTime = LocalDateTime.parse(state.data[0].createdAt.toString())
-
-                            val dateFormatter =
-                                DateTimeFormatter.ofPattern("yyyy년 M월 d일 E요일", Locale.KOREAN)
-
-                            val dateText = dateTime.format(dateFormatter)
-
-                            Text(
-                                text = dateText,
-                                style = HolixTheme.typography.label3R11,
-                                color = HolixTheme.colors.gray06,
-                                modifier = modifier
-                                    .fillMaxWidth()
-                                    .padding(top = 10.dp),
-                                textAlign = TextAlign.Center
-                            )
-                        }
-
-                        items(state.data) {chattingData ->
-                            if (chattingData.chattingType == ChattingType.SYSTEM) {
-                                ChattingSystemMessage(message = chattingData.contents)
-                            } else {
-                                ChattingItem(
-                                    nickname = chattingData.userName,
-                                    introduction = chattingData.introduction,
-                                    profileUrl = chattingData.imageUrl,
-                                    chat = chattingData.contents,
-                                    likes = chattingData.likes,
-                                    isMine = chattingData.isMine,
-                                    date = chattingData.createdAt.toString(),
-                                ) {
+                    items(state.data) {chattingData ->
+                        if (chattingData.chattingType == ChattingType.SYSTEM) {
+                            ChattingSystemMessage(message = chattingData.contents)
+                        } else {
+                            ChattingItem(
+                                nickname = chattingData.userName,
+                                introduction = chattingData.introduction,
+                                profileUrl = chattingData.imageUrl,
+                                chat = chattingData.contents,
+                                likes = chattingData.likes,
+                                isMine = chattingData.isMine,
+                                date = chattingData.createdAt.toString(),
+                                onEmojiClick = {
 
                                 }
-                            }
+                            )
                         }
                     }
                 }
             }
         }
-    )
+
+        ChattingTextField(
+            chat = chat,
+            onClickSendButton = onClickSendButton,
+            onTextChanged = {
+                onTextChanged(it)
+            }
+        )
+    }
 }
 
 @Preview(showBackground = true)
@@ -212,7 +241,7 @@ fun ChattingScreenPreview() {
             likes = 3,
             chattingType = ChattingType.USER,
             isMine = false,
-            createdAt = LocalDateTime.now()
+            createdAt ="2024-05-03T13:02:00"
         ),
 
         ChattingListDataEntity(
@@ -225,7 +254,7 @@ fun ChattingScreenPreview() {
             likes = 3,
             chattingType = ChattingType.USER,
             isMine = true,
-            createdAt = LocalDateTime.now()
+            createdAt = "2024-05-03T13:02:00"
         ),
 
         ChattingListDataEntity(
@@ -238,7 +267,7 @@ fun ChattingScreenPreview() {
             likes = 0,
             chattingType = ChattingType.SYSTEM,
             isMine = false,
-            createdAt = LocalDateTime.now()
+            createdAt ="2024-05-03T13:02:00"
         ),
 
         ChattingListDataEntity(
@@ -251,7 +280,7 @@ fun ChattingScreenPreview() {
             likes = 3,
             chattingType = ChattingType.USER,
             isMine = true,
-            createdAt = LocalDateTime.now()
+            createdAt = "2024-05-03T13:02:00"
         )
     )
 
@@ -259,8 +288,13 @@ fun ChattingScreenPreview() {
     HolixAndroidTheme{
         ChattingScreen(
             paddingValues = PaddingValues(),
+            chat = "",
+            listState = rememberLazyListState(),
+            onTextChanged = {},
             navigateUp = {},
-            state = UiState.Success(dummyList)
+            state = UiState.Success(dummyList),
+            onClickSendButton = {},
+            onClickHamburgerButton = {},
         )
     }
 }

@@ -31,18 +31,16 @@ import org.sopt.holix.core.designsystem.theme.HolixTheme
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.noRippleClickable
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
-import org.sopt.holix.domain.model.chatting.ChattingScreenType
 import org.sopt.holix.domain.model.chatting.ChattingType
 import org.sopt.holix.presentation.chatting.components.detail.hamburger.ChattingClubExit
 import org.sopt.holix.presentation.chatting.components.detail.hamburger.ChattingHamburgerMenu
-import org.sopt.holix.presentation.chatting.core.ChattingTopBar
-import java.time.LocalDateTime
+import org.sopt.holix.presentation.chatting.components.detail.hamburger.ChattingHamburgerTopBar
 
 @Composable
 fun ChattingHamburgerRoute(
     navigateUp: () -> Unit,
-    navigateNext: () -> Unit,
     snackBarHostState: SnackbarHostState,
+    modifier: Modifier = Modifier,
     viewModel: ChattingViewModel = hiltViewModel()
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -65,8 +63,8 @@ fun ChattingHamburgerRoute(
             .collect { sideEffect ->
                 when (sideEffect) {
                     is ChattingSideEffect.ShowSnackBar -> snackBarHostState.showSnackbar(sideEffect.message)
-                    ChattingSideEffect.NavigateNext -> navigateNext()
                     ChattingSideEffect.NavigateUp -> navigateUp()
+                    else -> {}
                 }
             }
     }
@@ -75,7 +73,7 @@ fun ChattingHamburgerRoute(
         state = state.uiState,
         hamburgerMenuList = hamburgerMenuList,
         navigateUp = navigateUp,
-        modifier = Modifier
+        modifier = modifier
     )
 }
 
@@ -86,12 +84,10 @@ fun ChattingHamburgerScreen(
     navigateUp: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-
     Scaffold(
         containerColor = HolixTheme.colors.gray01,
         topBar = {
-            ChattingTopBar(
-                screenType = ChattingScreenType.Hamburger,
+            ChattingHamburgerTopBar(
                 navigateUp = {
                     navigateUp()
                 }
@@ -143,7 +139,6 @@ fun ChattingHamburgerScreen(
                     }
 
                     is UiState.Success -> {
-                        //Todo : 반복으로 할지 나눠서할지?
                         items(hamburgerMenuList.size) {hamburgerMenuIndex ->
                             ChattingHamburgerMenu(
                                 imageVector = ImageVector.vectorResource(hamburgerMenuList[hamburgerMenuIndex].first),
@@ -161,7 +156,11 @@ fun ChattingHamburgerScreen(
                         }
 
                         item {
-                            ChattingClubExit()
+                            ChattingClubExit(
+                                modifier = modifier
+                            )
+
+                            Spacer(modifier = modifier.height(16.dp))
                         }
                     }
                 }
@@ -192,7 +191,7 @@ fun ChattingHamburgerScreenPreview() {
             likes = 3,
             chattingType = ChattingType.USER,
             isMine = false,
-            createdAt = LocalDateTime.now()
+            createdAt = "2024-05-03T13:02:00"
         ),
 
         ChattingListDataEntity(
@@ -205,7 +204,7 @@ fun ChattingHamburgerScreenPreview() {
             likes = 3,
             chattingType = ChattingType.USER,
             isMine = true,
-            createdAt = LocalDateTime.now()
+            createdAt = "2024-05-03T13:02:00"
         ),
 
         ChattingListDataEntity(
@@ -218,7 +217,7 @@ fun ChattingHamburgerScreenPreview() {
             likes = 0,
             chattingType = ChattingType.SYSTEM,
             isMine = false,
-            createdAt = LocalDateTime.now()
+            createdAt = "2024-05-03T13:02:00"
         ),
 
         ChattingListDataEntity(
@@ -231,7 +230,7 @@ fun ChattingHamburgerScreenPreview() {
             likes = 3,
             chattingType = ChattingType.USER,
             isMine = true,
-            createdAt = LocalDateTime.now()
+            createdAt = "2024-05-03T13:02:00"
         )
     )
 

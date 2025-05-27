@@ -41,7 +41,7 @@ fun ChattingHamburgerTopBar(
                 modifier = modifier
                     .padding(start = 10.dp, end = 9.dp, top = 7.dp, bottom = 7.dp)
                     .clickable {
-                        //navigateUp()
+                        navigateUp()
                     }
             )
         }

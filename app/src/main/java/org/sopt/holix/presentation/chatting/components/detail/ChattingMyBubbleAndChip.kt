@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
+import org.sopt.holix.presentation.chatting.utils.DateUtils.toFormattedTimeString
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -34,20 +36,17 @@ fun ChattingMyBubbleAndChip(
     date: String,
     modifier: Modifier = Modifier
 ) {
-    val dateTimeParse = LocalDateTime.parse(date)
-
-    val timeFormatter = DateTimeFormatter.ofPattern("a h시 m분", java.util.Locale.KOREAN)
-    val timeText = dateTimeParse.format(timeFormatter)
-
     Box(
         modifier = modifier
+            .fillMaxWidth()
             .padding(5.dp)
     ) {
         Text(
             text = chat,
             style = HolixTheme.typography.body3R15,
             color = HolixTheme.colors.white,
-            modifier = modifier
+            modifier = Modifier
+                .align(Alignment.TopEnd)
                 .clip(RoundedCornerShape(topStart = 11.dp, bottomStart = 11.dp, bottomEnd = 11.dp))
                 .background(HolixTheme.colors.mainBlue)
                 .padding(7.dp)
@@ -62,7 +61,7 @@ fun ChattingMyBubbleAndChip(
 
             Text(
                 modifier = modifier.align(Alignment.Bottom),
-                text = timeText,
+                text = date.toFormattedTimeString(),
                 style = HolixTheme.typography.label4M9,
                 color = HolixTheme.colors.gray05
             )
@@ -106,7 +105,7 @@ fun ChattingMyBubbleAndChip(
 fun ChattingMyBubblePreview() {
     HolixAndroidTheme {
         ChattingMyBubbleAndChip(
-            chat = "ㅎㅇㅎㅇㅎㅇㅎ",
+            chat = "ㅎㅇdfsafdsfdsa",
             likes = 1,
             date = "2024-05-03T13:02:00"
         )
