@@ -25,14 +25,15 @@ import org.sopt.holix.core.designsystem.theme.Black
 import org.sopt.holix.core.designsystem.theme.Gray03
 import org.sopt.holix.core.designsystem.theme.Gray04
 import org.sopt.holix.core.designsystem.theme.HolixTheme
-import org.sopt.holix.presentation.home.model.StudyUiModel
+import org.sopt.holix.domain.model.home.Study
+import org.sopt.holix.domain.model.home.StudyEntity
 
 
 @Composable
 fun CourseSection(
     modifier: Modifier = Modifier,
     title: String,
-    studies: List<StudyUiModel>
+    studies: List<Study>
 ) {
     Column(
         modifier = modifier
@@ -72,7 +73,7 @@ fun CourseSection(
 
 @Composable
 fun CourseCardItem(
-    study: StudyUiModel,
+    study: Study,
     modifier: Modifier = Modifier
 ) {
     Column(
@@ -86,7 +87,7 @@ fun CourseCardItem(
                 .aspectRatio(228f / 150f)
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(10.dp)),
-            contentDescription = study.studyTitle,
+            contentDescription = study.title,
             contentScale = ContentScale.Crop,
         )
         Spacer(modifier = Modifier.height(12.dp))
@@ -101,7 +102,7 @@ fun CourseCardItem(
         Spacer(modifier = Modifier.height(12.dp))
 
         Text(
-            text = study.studyTitle,
+            text = study.title,
             style = HolixTheme.typography.title3B15,
             color = Black,
             maxLines = 1
@@ -109,7 +110,7 @@ fun CourseCardItem(
         Spacer(modifier = Modifier.height(2.dp))
 
         Text(
-            text = study.studyLeader,
+            text = study.leader,
             style = HolixTheme.typography.body6M13,
             color = Gray03,
             maxLines = 1

@@ -1,37 +1,61 @@
 package org.sopt.holix.presentation.home
 
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.State
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.collections.immutable.persistentListOf
-import org.sopt.holix.presentation.home.dummyData.dummyStudyList1
-import org.sopt.holix.presentation.home.dummyData.dummyStudyList2
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import org.sopt.holix.core.util.UiState
+import org.sopt.holix.core.util.handleError
+import org.sopt.holix.domain.repository.HomeRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
-    private val _uiState = mutableStateOf(HomeState())
-    val uiState: State<HomeState> = _uiState
+class HomeViewModel @Inject constructor(
+    private val homeRepository: HomeRepository
+) : ViewModel() {
 
-    init {
-        loadDummyData()
-    }
+    private val _state = MutableStateFlow(HomeState())
+    val state: StateFlow<HomeState>
+        get() = _state.asStateFlow()
 
-    private fun loadDummyData() {
-        _uiState.value = _uiState.value.copy(
-            sections = persistentListOf(
-                dummyStudyList1,
-                dummyStudyList2
-            )
-        )
+    private val _sideEffect = MutableSharedFlow<HomeSideEffect>()
+    val sideEffect: SharedFlow<HomeSideEffect>
+        get() = _sideEffect
+
+    fun getHomeStudyData() = viewModelScope.launch {
+        homeRepository.getHomeData()
+            .onSuccess { studyEntity ->
+                _state.value = _state.value.copy(
+                    uiState = UiState.Success(
+                        persistentListOf(
+                            studyEntity.passionateStudies,
+                            studyEntity.insightStudies,
+                            studyEntity.newStudies,
+                            studyEntity.recommendedStudies,
+                            studyEntity.freeStudies
+                        )
+                    )
+                )
+            }.onFailure { throwable ->
+                val errorMessage = handleError(throwable)
+                _state.value = _state.value.copy(
+                    uiState = UiState.Failure(errorMessage)
+                )
+                _sideEffect.emit(HomeSideEffect.ShowSnackBar("실패..."))
+            }
     }
 
     fun onTabSelected(index: Int) {
-        _uiState.value = _uiState.value.copy(selectedTab = index)
+        _state.value = _state.value.copy(selectedTab = index)
     }
 
     fun onSearchChanged(newValue: String) {
-        _uiState.value = _uiState.value.copy(search = newValue)
+        _state.value = _state.value.copy(search = newValue)
     }
 }

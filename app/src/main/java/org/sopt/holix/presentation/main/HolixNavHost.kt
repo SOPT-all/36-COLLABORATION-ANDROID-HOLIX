@@ -11,6 +11,7 @@ import org.sopt.holix.presentation.chatting.navigation.chattingNavGraph
 import org.sopt.holix.presentation.club_detail_home.clubDetailNavGraph
 import org.sopt.holix.presentation.dummy.dummyNavGraph
 import org.sopt.holix.presentation.dummy.next.dummyNextNavGraph
+import org.sopt.holix.presentation.home.homeNavGraph
 import org.sopt.holix.presentation.myclub.myClubNavGraph
 
 @Composable

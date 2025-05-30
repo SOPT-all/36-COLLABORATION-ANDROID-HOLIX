@@ -1,9 +1,4 @@
-package org.sopt.holix.domain.model
-
-import org.sopt.holix.presentation.home.model.StudyDataUiModel
-import org.sopt.holix.presentation.home.model.StudyUiModel
-import org.sopt.holix.presentation.home.model.TagUiModel
-import org.sopt.holix.presentation.mapper.toUiModel
+package org.sopt.holix.domain.model.home
 
 data class Study(
     val id: Int,
@@ -20,10 +15,10 @@ data class Tag(
     val color: String
 )
 
-data class StudyData(
+data class StudyEntity(
     val passionateStudies: List<Study>,
     val insightStudies: List<Study>,
     val newStudies: List<Study>,
-    val recommendStudies: List<Study>,
+    val recommendedStudies: List<Study>,
     val freeStudies: List<Study>
 )

@@ -1,6 +1,6 @@
 package org.sopt.holix.presentation.home.model
 
-import org.sopt.holix.domain.model.Tag
+import org.sopt.holix.domain.model.home.Tag
 
 data class StudyUiModel(
     val studyId: Int,
