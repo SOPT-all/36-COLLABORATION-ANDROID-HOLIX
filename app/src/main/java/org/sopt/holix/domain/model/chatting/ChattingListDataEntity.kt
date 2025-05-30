@@ -1,6 +1,5 @@
 package org.sopt.holix.domain.model.chatting
 
-import java.time.LocalDateTime
 
 data class ChattingListDataEntity(
     val chattingId : Long,
@@ -12,5 +11,5 @@ data class ChattingListDataEntity(
     val likes : Int,
     val chattingType : ChattingType,
     val isMine : Boolean,
-    val createdAt : LocalDateTime,
+    val createdAt : String,
 )

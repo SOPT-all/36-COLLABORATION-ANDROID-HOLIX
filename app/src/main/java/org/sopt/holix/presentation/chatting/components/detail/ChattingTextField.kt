@@ -28,11 +28,13 @@ import androidx.compose.ui.unit.dp
 import org.sopt.holix.R
 import org.sopt.holix.core.designsystem.theme.HolixAndroidTheme
 import org.sopt.holix.core.designsystem.theme.HolixTheme
+import org.sopt.holix.core.util.noRippleClickable
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ChattingTextField(
     chat : String,
+    onClickSendButton : () -> Unit,
     onTextChanged : (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -93,8 +95,17 @@ fun ChattingTextField(
             imageVector = ImageVector.vectorResource(R.drawable.ic_send),
             contentDescription = stringResource(R.string.chat_send_content_description),
             modifier = modifier
-                .padding(start = 13.dp, end = 16.dp),
-            tint = Color.Unspecified
+                .padding(start = 13.dp, end = 16.dp)
+                .noRippleClickable {
+                    if (chat.isNotEmpty()) {
+                        onClickSendButton()
+                    }
+                },
+            tint = if (chat.isEmpty()) {
+                Color.Unspecified
+            } else {
+                HolixTheme.colors.mainBlue
+            }
         )
     }
 }
@@ -106,6 +117,9 @@ fun ChattingTextFieldPreview() {
         ChattingTextField(
             chat = "",
             onTextChanged = {
+
+            },
+            onClickSendButton = {
 
             }
         )

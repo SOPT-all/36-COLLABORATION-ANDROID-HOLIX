@@ -10,6 +10,12 @@ sealed interface Route {
     data object ClubChat: Route
 
     @Serializable
+    data object Chatting : Route
+
+    @Serializable
+    data object ChattingDetailHamburger : Route
+
+    @Serializable
     data object Dummy: Route
 
     @Serializable

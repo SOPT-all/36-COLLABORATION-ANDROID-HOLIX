@@ -11,12 +11,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.sopt.holix.core.util.UiState
 import org.sopt.holix.core.util.handleError
-import org.sopt.holix.domain.repository.ChattingRepository
+import org.sopt.holix.domain.model.chatting.ChattingDataEntity
+import org.sopt.holix.domain.repository.ClubRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class ChattingViewModel @Inject constructor(
-    private val chattingRepository: ChattingRepository
+    private val clubRepository: ClubRepository
 ): ViewModel() {
     private val _state = MutableStateFlow(ChattingState())
     val state: StateFlow<ChattingState>
@@ -27,7 +28,7 @@ class ChattingViewModel @Inject constructor(
         get() = _sideEffect
 
     fun getChattingList(clubId: Long) = viewModelScope.launch {
-        chattingRepository.getChattingList(clubId = clubId)
+        clubRepository.getChattingList(clubId = clubId)
             .onSuccess {
                 _state.value = _state.value.copy(
                     uiState = UiState.Success(it.toPersistentList())
@@ -39,6 +40,36 @@ class ChattingViewModel @Inject constructor(
                 )
                 showSnackBar(errorMessage)
             }
+    }
+
+    fun postChatting(clubId: Long, contents: String) = viewModelScope.launch {
+        val chattingEntity = ChattingDataEntity(contents = contents)
+
+        clubRepository.postChatting(clubId, chattingEntity)
+            .onSuccess {
+                _state.value = _state.value.copy(
+                    chattingState = UiState.Success(it.message)
+                )
+            }
+            .onFailure { throwable ->
+                val errorMessage = handleError(throwable)
+                _state.value = _state.value.copy(
+                    chattingState = UiState.Failure(errorMessage)
+                )
+                showSnackBar(errorMessage)
+            }
+    }
+
+    fun fetchText(chat: String) = viewModelScope.launch {
+        _state.value = _state.value.copy(
+            chattingText = chat
+        )
+    }
+
+    fun sendChatting() = viewModelScope.launch {
+        _state.value = _state.value.copy(
+            isSendChatting = !state.value.isSendChatting
+        )
     }
 
     fun showSnackBar(message: String) = viewModelScope.launch {

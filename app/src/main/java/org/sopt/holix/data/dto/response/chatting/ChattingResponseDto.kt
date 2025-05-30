@@ -4,7 +4,12 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import org.sopt.holix.domain.model.chatting.ChattingListDataEntity
 import org.sopt.holix.domain.model.chatting.ChattingType
-import java.time.LocalDateTime
+
+@Serializable
+data class ChattingListDto(
+    @SerialName("chattingList")
+    val chattingList: List<ChattingResponseDto>
+)
 
 @Serializable
 data class ChattingResponseDto(
@@ -23,13 +28,13 @@ data class ChattingResponseDto(
     @SerialName("likes")
     val likes : Int,
     @SerialName("chattingType")
-    val chattingType : ChattingType,
+    val chattingType : String,
     @SerialName("isMine")
     val isMine : Boolean,
     @SerialName("createdAt")
     val createdAt : String,
 ) {
-    fun toDomainModel() = ChattingListDataEntity(
+    fun toEntity() = ChattingListDataEntity(
         chattingId = chattingId,
         clubId = clubId,
         userName = userName,
@@ -37,8 +42,12 @@ data class ChattingResponseDto(
         imageUrl = imageUrl,
         contents = contents,
         likes = likes,
-        chattingType = chattingType,
+        chattingType = if (chattingType == "USER") {
+            ChattingType.USER
+        } else {
+            ChattingType.SYSTEM
+        },
         isMine = isMine,
-        createdAt = LocalDateTime.parse(createdAt)
+        createdAt = createdAt
     )
 }
