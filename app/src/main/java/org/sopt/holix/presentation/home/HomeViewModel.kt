@@ -29,7 +29,7 @@ class HomeViewModel @Inject constructor(
         get() = _sideEffect
 
     fun getHomeStudyData() = viewModelScope.launch {
-        runCatching { homeRepository.getHomeData() }
+        homeRepository.getHomeData()
             .onSuccess { studyEntity ->
                 _state.value = _state.value.copy(
                     uiState = UiState.Success(

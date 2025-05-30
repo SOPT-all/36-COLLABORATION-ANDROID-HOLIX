@@ -7,7 +7,5 @@ import javax.inject.Inject
 class HomeDataSource @Inject constructor(
     private val homeService: HomeService
 ) {
-    suspend fun getHomeData(): HomeResponseDto {
-        return homeService.getHomeData()
-    }
+    suspend fun getHomeData() = homeService.getHomeData()
 }

@@ -30,13 +30,20 @@ data class HomeResponseDto(
 
 @Serializable
 data class StudyDto(
-    @SerialName("studyId") val studyId: Int,
-    @SerialName("studyTitle") val studyTitle: String,
-    @SerialName("studyLeader") val studyLeader: String,
-    @SerialName("price") val price: String,
-    @SerialName("url") val url: String,
-    @SerialName("tags") val tags: List<TagDto>,
-    @SerialName("category") val category: String
+    @SerialName("studyId")
+    val studyId: Int,
+    @SerialName("studyTitle")
+    val studyTitle: String,
+    @SerialName("studyLeader")
+    val studyLeader: String,
+    @SerialName("price")
+    val price: String,
+    @SerialName("url")
+    val url: String,
+    @SerialName("tags")
+    val tags: List<TagDto>,
+    @SerialName("category")
+    val category: String
 ) {
     fun toEntity(): Study = Study(
         id = studyId,
